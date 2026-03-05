@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#837cfd",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#100f23",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>EASYSTUDY Dashboard</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- LEFT PANEL (256px) -->
+<aside class="w-64 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined fill-1">school</span>
+</div>
+<div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-none">EASYSTUDY</h1>
+<p class="text-xs text-slate-500 font-medium mt-1">Study Smarter</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-sm font-medium">Sources</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="text-sm font-medium">AI Tutor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-sm font-medium">Study Planner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-sm font-medium">Collaboration</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-sm font-medium">Progress</span>
+</a>
+</nav>
+<div class="px-4 py-6 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- TOP HEADER -->
+<header class="h-16 flex items-center justify-between px-8 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-10">
+<div class="flex-1 max-w-xl">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Search your sources, notes, or tutors..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="size-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">share</span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold leading-none">Scholar Alex</p>
+<p class="text-xs text-slate-500 font-medium mt-1">Pro Member</p>
+</div>
+<div class="size-10 rounded-full border-2 border-primary/20 p-0.5 bg-gradient-to-tr from-primary to-purple-400">
+<img class="w-full h-full rounded-full object-cover" data-alt="User profile avatar portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7ngvSJKG3TlxcO61-223YpQw8VjRmjShRRX7gH7pcyRm_lV1kBLdJEcsgG9VZwhHA0H-_nSMduWIl09hdCxmE1l2UiOqQbva53CE1vdz7G2ugu4GmCzBOEsvFD2e_043Le5vSCYPMnkDO1hjgJmIwsMEXkdA4MTKtBIeLP7ub8eWIJJ0z85FaNT5Ou1hYf6dKPdGf27MX3o1kn2qu4-i0ZoXH4Bz3OFqeVpAVwrIuVYKSQLaPdYM9XDlDNZaPR5K3UX4-UEYyt8Y"/>
+</div>
+</div>
+</div>
+</header>
+<!-- DASHBOARD VIEW -->
+<div class="flex-1 flex overflow-hidden">
+<!-- CENTER PANEL -->
+<section class="flex-1 overflow-y-auto p-8 space-y-8 scroll-smooth">
+<!-- Welcome Card -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/10 via-purple-100 to-blue-100 dark:from-primary/20 dark:via-slate-800 dark:to-slate-900 p-8 flex items-center border border-white dark:border-slate-700">
+<div class="flex-1 z-10">
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Welcome back, Scholar! ✨</h2>
+<p class="mt-2 text-slate-600 dark:text-slate-300 max-w-lg">Ready to conquer your learning goals today? Your AI tutor has summarized your 3 newest sources and prepared a quick quiz.</p>
+<button class="mt-6 bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">Start Studying Now</button>
+</div>
+<div class="hidden lg:block relative z-10">
+<div class="size-40 bg-white/40 dark:bg-white/5 rounded-full backdrop-blur-sm border border-white/50 flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-primary animate-pulse">auto_awesome</span>
+</div>
+</div>
+<div class="absolute -right-10 -bottom-10 size-64 bg-primary/20 rounded-full blur-3xl"></div>
+<div class="absolute right-20 -top-10 size-48 bg-blue-300/30 rounded-full blur-3xl"></div>
+</div>
+<!-- Feature Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all">
+<div class="size-12 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 text-indigo-500 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-2xl">robot_2</span>
+</div>
+<h3 class="text-lg font-bold">Personal AI Tutor</h3>
+<p class="text-sm text-slate-500 mt-2">Instant answers and deep explanations for your complex topics.</p>
+</div>
+<!-- Card 2 -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all">
+<div class="size-12 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-2xl">event_available</span>
+</div>
+<h3 class="text-lg font-bold">Smart Study Planner</h3>
+<p class="text-sm text-slate-500 mt-2">AI-driven scheduling that adapts to your learning pace.</p>
+</div>
+<!-- Card 3 -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all">
+<div class="size-12 rounded-lg bg-rose-100 dark:bg-rose-900/30 text-rose-500 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-2xl">hub</span>
+</div>
+<h3 class="text-lg font-bold">Collaborative Study</h3>
+<p class="text-sm text-slate-500 mt-2">Real-time shared whiteboards and collective note-taking.</p>
+</div>
+<!-- Card 4 -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all">
+<div class="size-12 rounded-lg bg-amber-100 dark:bg-amber-900/30 text-amber-500 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-2xl">description</span>
+</div>
+<h3 class="text-lg font-bold">Recent Notes</h3>
+<p class="text-sm text-slate-500 mt-2">Resume where you left off with intelligent context reminders.</p>
+</div>
+<!-- Card 5 -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all">
+<div class="size-12 rounded-lg bg-sky-100 dark:bg-sky-900/30 text-sky-500 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-2xl">bar_chart</span>
+</div>
+<h3 class="text-lg font-bold">Learning Progress</h3>
+<p class="text-sm text-slate-500 mt-2">Visualize your mastery level across different subjects.</p>
+</div>
+<!-- Card 6 -->
+<div class="group bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all">
+<div class="size-12 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-500 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-2xl">bolt</span>
+</div>
+<h3 class="text-lg font-bold">Quick Revision</h3>
+<p class="text-sm text-slate-500 mt-2">10-minute high-impact summary cards for exam prep.</p>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL (336px) -->
+<aside class="w-84 h-full bg-slate-50 dark:bg-slate-900/50 border-l border-slate-200 dark:border-slate-800 p-6 flex flex-col relative shrink-0 overflow-y-auto">
+<h2 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-6">Studio Tools</h2>
+<div class="grid grid-cols-2 gap-4">
+<!-- Tool 1 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined text-primary">audio_file</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Audio Overview</span>
+</button>
+<!-- Tool 2 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined text-primary">video_library</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Video Recap</span>
+</button>
+<!-- Tool 3 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Mind Map</span>
+</button>
+<!-- Tool 4 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined text-primary">summarize</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Reports</span>
+</button>
+<!-- Tool 5 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined text-primary">style</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Flashcards</span>
+</button>
+<!-- Tool 6 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined text-primary">quiz</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Quiz Gen</span>
+</button>
+<!-- Tool 7 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Infographic</span>
+</button>
+<!-- Tool 8 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined text-primary">present_to_all</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Slide Deck</span>
+</button>
+<!-- Tool 9 -->
+<button class="flex flex-col items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/50 hover:bg-primary/5 transition-all group col-span-2">
+<span class="material-symbols-outlined text-primary">table_chart</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Data Table</span>
+</button>
+</div>
+<div class="mt-auto pt-6">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-white py-4 rounded-xl font-bold shadow-xl shadow-primary/30 hover:-translate-y-1 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+<span>Add New Note</span>
+</button>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</body></html>

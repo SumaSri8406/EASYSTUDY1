@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#837cfd",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#100f23",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <title>EASYSTUDY - AI Tutor</title>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- LEFT PANEL -->
+        <aside
+            class="w-64 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-xl flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined fill-1">school</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-none">EasyStudy
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium mt-1">Premium Plan</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="/">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold"
+                    href="/ai-tutor">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                    <span class="text-sm">AI Tutor</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="/study-planner">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <span class="text-sm font-medium">Study Planner</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">style</span>
+                    <span class="text-sm font-medium">Flashcards</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text-sm font-medium">Settings</span>
+                </a>
+            </nav>
+            <!-- Weekly Goal -->
+            <div class="px-4 py-6 border-t border-slate-200 dark:border-slate-800">
+                <div class="bg-primary/5 rounded-xl p-4">
+                    <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">Weekly Goal</p>
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 mb-2">
+                        <div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <p class="text-xs text-slate-500">12/16 hours completed</p>
+                </div>
+                <button
+                    class="mt-4 w-full bg-primary text-white py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">Upgrade
+                    to Pro</button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden">
+            <!-- TOP HEADER -->
+            <header
+                class="h-14 flex items-center justify-between px-8 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-10">
+                <div class="flex items-center gap-6">
+                    <h2 class="text-xl font-bold">Personal AI Tutor</h2>
+                    <nav class="flex items-center gap-4 text-sm text-slate-500">
+                        <a href="#" class="hover:text-primary transition-colors font-medium">My Library</a>
+                        <a href="#" class="hover:text-primary transition-colors font-medium">History</a>
+                        <a href="#" class="hover:text-primary transition-colors font-medium">Resources</a>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                        <input
+                            class="bg-slate-100 dark:bg-slate-800 border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 outline-none w-48"
+                            placeholder="Search concepts..." type="text" />
+                    </div>
+                    <div
+                        class="size-9 rounded-full border-2 border-primary/20 p-0.5 bg-gradient-to-tr from-primary to-purple-400">
+                        <img class="w-full h-full rounded-full object-cover" alt="User avatar"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7ngvSJKG3TlxcO61-223YpQw8VjRmjShRRX7gH7pcyRm_lV1kBLdJEcsgG9VZwhHA0H-_nSMduWIl09hdCxmE1l2UiOqQbva53CE1vdz7G2ugu4GmCzBOEsvFD2e_043Le5vSCYPMnkDO1hjgJmIwsMEXkdA4MTKtBIeLP7ub8eWIJJ0z85FaNT5Ou1hYf6dKPdGf27MX3o1kn2qu4-i0ZoXH4Bz3OFqeVpAVwrIuVYKSQLaPdYM9XDlDNZaPR5K3UX4-UEYyt8Y" />
+                    </div>
+                </div>
+            </header>
+
+            <div class="flex-1 flex overflow-hidden">
+                <!-- CHAT AREA -->
+                <section class="flex-1 flex flex-col overflow-hidden">
+                    <!-- Difficulty Level -->
+                    <div
+                        class="flex items-center justify-between px-8 py-3 border-b border-slate-100 dark:border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <button
+                                class="px-4 py-1.5 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-100 transition-colors">Beginner</button>
+                            <button
+                                class="px-4 py-1.5 rounded-lg text-sm font-semibold text-primary bg-primary/10">Intermediate</button>
+                            <button
+                                class="px-4 py-1.5 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-100 transition-colors">Advanced</button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-slate-500">Step-by-step explanation</span>
+                            <button class="w-10 h-6 bg-primary rounded-full relative transition-colors">
+                                <div class="size-4 bg-white rounded-full absolute right-1 top-1 shadow-sm"></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div class="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                        <!-- AI Message 1 -->
+                        <div class="flex gap-3 max-w-3xl">
+                            <div class="size-9 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-primary text-lg">smart_toy</span>
+                            </div>
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-sm p-5 shadow-sm border border-slate-100 dark:border-slate-700">
+                                <p class="text-sm leading-relaxed">Hello! Today we're diving into <span
+                                        class="text-primary font-semibold">Quantum Superposition</span>. Think of it
+                                    like a spinning coin—before it lands, it's technically both heads and tails at the
+                                    same time. Ready to explore how this works in particles?</p>
+                                <!-- Concept Cards -->
+                                <div class="grid grid-cols-2 gap-3 mt-4">
+                                    <div
+                                        class="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-4 border border-indigo-100 dark:border-indigo-800">
+                                        <span class="material-symbols-outlined text-indigo-500 mb-2">waves</span>
+                                        <h4 class="text-sm font-bold text-indigo-600">Wave Function</h4>
+                                        <p class="text-xs text-slate-500 mt-1">The mathematical description of a quantum
+                                            state.</p>
+                                    </div>
+                                    <div
+                                        class="bg-rose-50 dark:bg-rose-900/20 rounded-xl p-4 border border-rose-100 dark:border-rose-800">
+                                        <span class="material-symbols-outlined text-rose-500 mb-2">visibility</span>
+                                        <h4 class="text-sm font-bold text-rose-600">Observation</h4>
+                                        <p class="text-xs text-slate-500 mt-1">How measuring a system changes its state
+                                            instantly.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User Message -->
+                        <div class="flex gap-3 max-w-3xl ml-auto flex-row-reverse">
+                            <div class="size-9 bg-amber-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-amber-600 text-lg">person</span>
+                            </div>
+                            <div
+                                class="bg-amber-50 dark:bg-amber-900/20 rounded-2xl rounded-tr-sm p-5 border border-amber-100 dark:border-amber-800">
+                                <p class="text-sm leading-relaxed">That coin analogy helps! But how does this relate to
+                                    Schrödinger's Cat? I've heard that's the famous example.</p>
+                            </div>
+                        </div>
+
+                        <!-- AI Message 2 -->
+                        <div class="flex gap-3 max-w-3xl">
+                            <div class="size-9 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-primary text-lg">smart_toy</span>
+                            </div>
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-sm p-5 shadow-sm border border-slate-100 dark:border-slate-700">
+                                <p class="text-sm leading-relaxed mb-4">Exactly! Schrödinger's Cat is a "thought
+                                    experiment" designed to show how weird superposition would be if applied to big
+                                    things like cats. Let's break down the logic:</p>
+                                <!-- Numbered Steps -->
+                                <div class="space-y-3">
+                                    <div
+                                        class="flex items-start gap-3 bg-emerald-50 dark:bg-emerald-900/10 p-4 rounded-xl border-l-4 border-emerald-400">
+                                        <span
+                                            class="size-7 bg-emerald-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">01</span>
+                                        <p class="text-sm">A cat is placed in a sealed box with a tiny bit of
+                                            radioactive substance.</p>
+                                    </div>
+                                    <div
+                                        class="flex items-start gap-3 bg-amber-50 dark:bg-amber-900/10 p-4 rounded-xl border-l-4 border-amber-400">
+                                        <span
+                                            class="size-7 bg-amber-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">02</span>
+                                        <p class="text-sm">According to quantum law, the substance is both decayed and
+                                            NOT decayed until we look.</p>
+                                    </div>
+                                    <div
+                                        class="flex items-start gap-3 bg-rose-50 dark:bg-rose-900/10 p-4 rounded-xl border-l-4 border-rose-400">
+                                        <span
+                                            class="size-7 bg-rose-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">03</span>
+                                        <p class="text-sm">Therefore, the cat must be both <strong>alive and
+                                                dead</strong> at the same time until the box is opened.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="flex gap-3 px-12">
+                            <button
+                                class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 hover:border-primary hover:text-primary transition-all">Tell
+                                me more about the math</button>
+                            <button
+                                class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 hover:border-primary hover:text-primary transition-all">Quiz
+                                me on this</button>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="px-8 py-4 border-t border-slate-100 dark:border-slate-800">
+                        <div
+                            class="flex items-center gap-3 bg-white dark:bg-slate-800 rounded-2xl px-4 py-3 border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <button class="text-slate-400 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined">attach_file</span>
+                            </button>
+                            <input class="flex-1 bg-transparent border-none outline-none text-sm"
+                                placeholder="Ask anything about the topic..." type="text" />
+                            <button class="text-slate-400 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined">mic</span>
+                            </button>
+                            <button
+                                class="size-10 bg-primary rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/30 hover:scale-105 transition-all">
+                                <span class="material-symbols-outlined">send</span>
+                            </button>
+                        </div>
+                        <p class="text-center text-xs text-slate-400 mt-2 uppercase tracking-wider">EasyAI can make
+                            mistakes. Verify important facts.</p>
+                    </div>
+                </section>
+
+                <!-- RIGHT PANEL -->
+                <aside
+                    class="w-72 h-full bg-slate-50 dark:bg-slate-900/50 border-l border-slate-200 dark:border-slate-800 p-6 flex flex-col shrink-0 overflow-y-auto">
+                    <!-- Topic Progress -->
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Topic Progress</h3>
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-100 dark:border-slate-700 text-center mb-6">
+                        <div class="relative size-20 mx-auto mb-3">
+                            <svg class="size-20 -rotate-90" viewBox="0 0 80 80">
+                                <circle cx="40" cy="40" r="35" fill="none" stroke="#e2e8f0" stroke-width="6" />
+                                <circle cx="40" cy="40" r="35" fill="none" stroke="#837cfd" stroke-width="6"
+                                    stroke-dasharray="143.26" stroke-dashoffset="50.14" stroke-linecap="round" />
+                            </svg>
+                            <span class="absolute inset-0 flex items-center justify-center text-sm font-bold">65%</span>
+                        </div>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider">Curriculum</p>
+                        <p class="text-sm font-bold">Quantum Phys.</p>
+                        <button
+                            class="mt-3 w-full py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-primary hover:text-primary transition-all">View
+                            Syllabus</button>
+                    </div>
+
+                    <!-- Key Concepts -->
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Key Concepts</h3>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="size-6 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-sm">check</span></span>
+                            <span class="text-sm font-medium">Wave-Particle Duality</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="size-6 bg-primary/10 text-primary rounded-full flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-sm">radio_button_checked</span></span>
+                            <span class="text-sm font-medium">Superposition</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="size-6 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-sm">radio_button_unchecked</span></span>
+                            <span class="text-sm text-slate-500">Quantum Entanglement</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="size-6 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-sm">radio_button_unchecked</span></span>
+                            <span class="text-sm text-slate-500">Heisenberg Uncertainty</span>
+                        </div>
+                    </div>
+
+                    <!-- Flashcard Deck -->
+                    <div class="bg-primary rounded-xl p-5 text-white mb-6 relative overflow-hidden">
+                        <div class="absolute -right-4 -bottom-4 size-20 bg-white/10 rounded-full"></div>
+                        <h4 class="text-sm font-bold">Flashcard Deck</h4>
+                        <p class="text-xs text-white/70 mt-1">42 new terms detected in today's lesson.</p>
+                        <button
+                            class="mt-3 bg-white text-primary px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/90 transition-colors">Study
+                            Now</button>
+                    </div>
+
+                    <!-- Session Stats -->
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Session Stats</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700 text-center">
+                            <p class="text-xs text-slate-400">Duration</p>
+                            <p class="text-lg font-bold">24m 12s</p>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700 text-center">
+                            <p class="text-xs text-slate-400">Questions</p>
+                            <p class="text-lg font-bold">14 Asked</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

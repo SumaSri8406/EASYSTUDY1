@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#837cfd",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#100f23",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <title>EASYSTUDY - Collaboration</title>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- LEFT PANEL -->
+        <aside
+            class="w-64 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-xl flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined fill-1">school</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-none">EASYSTUDY
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Top Nav -->
+            <div class="px-4 mb-2">
+                <div class="relative">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                    <input class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-xl py-2 pl-10 pr-4 text-sm"
+                        placeholder="Search resources..." type="text" />
+                </div>
+            </div>
+
+            <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="/">
+                    <span class="material-symbols-outlined">home</span>
+                    <span class="text-sm font-medium">Home</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">menu_book</span>
+                    <span class="text-sm font-medium">My Courses</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold"
+                    href="/collaboration">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span class="text-sm">Groups</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">folder_open</span>
+                    <span class="text-sm font-medium">Resources</span>
+                </a>
+            </nav>
+
+            <!-- Live Now -->
+            <div class="px-4 py-4 border-t border-slate-200 dark:border-slate-800">
+                <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3 px-4">Live Now</p>
+                <div class="space-y-3 px-2">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="size-8 rounded-full bg-gradient-to-tr from-pink-400 to-rose-500 flex items-center justify-center text-white text-xs font-bold">
+                            S</div>
+                        <div>
+                            <p class="text-sm font-medium">Sarah Chen</p>
+                            <p class="text-xs text-slate-500">In Study Room 1</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="size-8 rounded-full bg-gradient-to-tr from-blue-400 to-cyan-500 flex items-center justify-center text-white text-xs font-bold">
+                            M</div>
+                        <div>
+                            <p class="text-sm font-medium">Marcus J.</p>
+                            <p class="text-xs text-slate-500">Editing Notes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-4 py-4">
+                <button
+                    class="w-full flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:-translate-y-1 transition-all">
+                    <span class="material-symbols-outlined">add</span>
+                    <span>New Session</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden">
+            <!-- TOP HEADER -->
+            <header
+                class="h-14 flex items-center justify-between px-8 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-10">
+                <div class="flex items-center gap-6">
+                    <nav class="flex items-center gap-4 text-sm">
+                        <a href="/"
+                            class="text-slate-500 hover:text-primary transition-colors font-medium">Dashboard</a>
+                        <a href="#" class="text-primary font-semibold">Study Rooms</a>
+                        <a href="#" class="text-slate-500 hover:text-primary transition-colors font-medium">Library</a>
+                        <a href="#" class="text-slate-500 hover:text-primary transition-colors font-medium">Calendar</a>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="size-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 hover:text-primary transition-all">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button
+                        class="size-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 hover:text-primary transition-all">
+                        <span class="material-symbols-outlined">settings</span>
+                    </button>
+                    <div
+                        class="size-9 rounded-full border-2 border-primary/20 p-0.5 bg-gradient-to-tr from-primary to-purple-400">
+                        <img class="w-full h-full rounded-full object-cover" alt="User avatar"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7ngvSJKG3TlxcO61-223YpQw8VjRmjShRRX7gH7pcyRm_lV1kBLdJEcsgG9VZwhHA0H-_nSMduWIl09hdCxmE1l2UiOqQbva53CE1vdz7G2ugu4GmCzBOEsvFD2e_043Le5vSCYPMnkDO1hjgJmIwsMEXkdA4MTKtBIeLP7ub8eWIJJ0z85FaNT5Ou1hYf6dKPdGf27MX3o1kn2qu4-i0ZoXH4Bz3OFqeVpAVwrIuVYKSQLaPdYM9XDlDNZaPR5K3UX4-UEYyt8Y" />
+                    </div>
+                </div>
+            </header>
+
+            <div class="flex-1 flex overflow-hidden">
+                <!-- CENTER - STUDY ROOM -->
+                <section class="flex-1 overflow-y-auto p-8 space-y-6">
+                    <!-- Breadcrumb -->
+                    <div class="flex items-center gap-2 text-sm text-slate-500">
+                        <a href="#" class="hover:text-primary transition-colors">Groups</a>
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                        <span>Organic Chemistry II</span>
+                    </div>
+
+                    <!-- Group Title -->
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-3xl font-bold">Chemistry Study Group <span class="text-primary">#402</span></h2>
+                        <div class="flex items-center gap-3">
+                            <div class="flex -space-x-2">
+                                <div
+                                    class="size-8 rounded-full bg-gradient-to-tr from-pink-400 to-rose-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+                                    S</div>
+                                <div
+                                    class="size-8 rounded-full bg-gradient-to-tr from-blue-400 to-cyan-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+                                    M</div>
+                                <div
+                                    class="size-8 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">
+                                    A</div>
+                                <div
+                                    class="size-8 rounded-full bg-primary/20 border-2 border-white flex items-center justify-center text-primary text-xs font-bold">
+                                    +12</div>
+                            </div>
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium hover:border-primary hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-lg">person_add</span>
+                                Invite
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tab Navigation -->
+                    <div class="flex gap-6 border-b border-slate-200 dark:border-slate-800">
+                        <button
+                            class="flex items-center gap-2 pb-3 border-b-2 border-primary text-primary font-semibold text-sm">
+                            <span class="material-symbols-outlined text-lg">meeting_room</span>
+                            Active Study Room
+                        </button>
+                        <button
+                            class="flex items-center gap-2 pb-3 text-slate-500 text-sm font-medium hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-lg">description</span>
+                            Shared Notes
+                        </button>
+                        <button
+                            class="flex items-center gap-2 pb-3 text-slate-500 text-sm font-medium hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-lg">folder_open</span>
+                            Resources
+                        </button>
+                    </div>
+
+                    <!-- Video Feeds -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-200 dark:bg-slate-700 rounded-xl p-6 relative aspect-video">
+                            <div class="absolute top-4 left-4 flex items-center gap-2">
+                                <div
+                                    class="size-8 rounded-full bg-gradient-to-tr from-pink-400 to-rose-500 flex items-center justify-center text-white text-xs font-bold">
+                                    S</div>
+                                <div>
+                                    <p class="text-sm font-bold text-white drop-shadow-md">Sarah Chen</p>
+                                    <p class="text-xs text-emerald-400 font-medium">MODERATOR</p>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 right-4 flex items-center gap-2">
+                                <button
+                                    class="size-7 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white"><span
+                                        class="material-symbols-outlined text-sm">mic_off</span></button>
+                                <button
+                                    class="size-7 bg-white/20 backdrop-blur rounded-full flex items-center justify-center text-white"><span
+                                        class="material-symbols-outlined text-sm">screen_share</span></button>
+                            </div>
+                            <div class="flex items-center justify-center h-full">
+                                <div
+                                    class="size-16 bg-slate-300 dark:bg-slate-600 rounded-full flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-2xl text-slate-500">person</span>
+                                </div>
+                            </div>
+                            <p
+                                class="absolute bottom-4 left-4 text-xs text-white/70 font-medium uppercase tracking-wider">
+                                Live Screen</p>
+                        </div>
+                        <div class="bg-slate-200 dark:bg-slate-700 rounded-xl p-6 relative aspect-video">
+                            <div class="absolute top-4 left-4 flex items-center gap-2">
+                                <div
+                                    class="size-8 rounded-full bg-gradient-to-tr from-blue-400 to-cyan-500 flex items-center justify-center text-white text-xs font-bold">
+                                    M</div>
+                                <div>
+                                    <p class="text-sm font-bold text-white drop-shadow-md">Marcus J.</p>
+                                    <p class="text-xs text-primary font-medium">IN FOCUS</p>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 right-4 flex items-center gap-2">
+                                <button
+                                    class="size-7 bg-rose-500/80 backdrop-blur rounded-full flex items-center justify-center text-white"><span
+                                        class="material-symbols-outlined text-sm">mic_off</span></button>
+                                <button
+                                    class="size-7 bg-emerald-500/80 backdrop-blur rounded-full flex items-center justify-center text-white"><span
+                                        class="material-symbols-outlined text-sm">screen_share</span></button>
+                            </div>
+                            <div class="flex items-center justify-center h-full">
+                                <div
+                                    class="size-16 bg-slate-300 dark:bg-slate-600 rounded-full flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-2xl text-slate-500">person</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Collaborative Session Notes -->
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">edit_note</span>
+                                <h3 class="text-lg font-bold">Collaborative Session Notes</h3>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-slate-400">Auto-saving...</span>
+                                <button
+                                    class="size-8 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center text-slate-500 hover:text-primary transition-colors">
+                                    <span class="material-symbols-outlined text-sm">fullscreen</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <h4 class="text-lg font-bold">Topic: Functional Group Transformations</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">Focusing on Alcohol to Alkyl Halide
+                                conversions today. Sarah added the mechanism for PBr3 reaction below.</p>
+                            <p class="text-sm text-slate-600"><span
+                                    class="bg-primary/10 text-primary px-1 rounded font-semibold">@Marcus:</span> can
+                                you check the stoichiometry on Step 2?</p>
+                            <div
+                                class="bg-slate-50 dark:bg-slate-700 rounded-lg p-3 mt-3 font-mono text-sm text-slate-600">
+                                R-OH + PBr3 → R-Br + HOPBr2
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RIGHT PANEL - Chat + Info -->
+                <aside
+                    class="w-80 h-full bg-slate-50 dark:bg-slate-900/50 border-l border-slate-200 dark:border-slate-800 flex flex-col shrink-0 overflow-hidden">
+                    <!-- Chat Section -->
+                    <div class="flex-1 flex flex-col overflow-hidden">
+                        <!-- Study Buddy AI -->
+                        <div class="p-4 space-y-4 overflow-y-auto flex-1">
+                            <div class="flex gap-3">
+                                <div
+                                    class="size-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold">Study Buddy AI</p>
+                                    <p class="text-xs text-emerald-500">Analyzing current session...</p>
+                                </div>
+                            </div>
+
+                            <!-- AI Message -->
+                            <div class="flex gap-3">
+                                <div
+                                    class="size-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0 mt-1">
+                                    <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+                                </div>
+                                <div
+                                    class="bg-white dark:bg-slate-800 rounded-xl rounded-tl-sm p-3 text-sm border border-slate-100 dark:border-slate-700">
+                                    Hey team! I noticed you're discussing Alcohol transformations. Need a quick summary
+                                    table for Sn1 vs Sn2 reactions?
+                                </div>
+                            </div>
+
+                            <!-- User Response -->
+                            <div class="flex gap-3 flex-row-reverse">
+                                <div
+                                    class="size-8 bg-pink-100 rounded-full flex items-center justify-center shrink-0 mt-1 text-xs font-bold text-pink-600">
+                                    SC</div>
+                                <div class="bg-primary/10 rounded-xl rounded-tr-sm p-3 text-sm">
+                                    Yes please! Specifically for secondary alcohols.
+                                </div>
+                            </div>
+
+                            <!-- AI Reply -->
+                            <div class="flex gap-3">
+                                <div
+                                    class="size-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0 mt-1">
+                                    <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+                                </div>
+                                <div
+                                    class="bg-white dark:bg-slate-800 rounded-xl rounded-tl-sm p-3 text-sm border border-slate-100 dark:border-slate-700">
+                                    Here's what I found.
+                                </div>
+                            </div>
+
+                            <!-- Session Goal Progress -->
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-bold">Session Goal Progress</h4>
+                                    <div>
+                                        <span class="text-sm font-bold text-primary">75%</span>
+                                        <span class="text-xs text-emerald-500 ml-1">Complete</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span
+                                                class="text-xs font-bold uppercase tracking-wider text-slate-500">Notes
+                                                Summary</span>
+                                            <span class="text-xs font-bold">100%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-100 h-2 rounded-full">
+                                            <div class="bg-emerald-400 h-2 rounded-full w-full"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span
+                                                class="text-xs font-bold uppercase tracking-wider text-slate-500">Practice
+                                                Quiz</span>
+                                            <span class="text-xs font-bold">40%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-100 h-2 rounded-full">
+                                            <div class="bg-primary h-2 rounded-full" style="width:40%"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span
+                                                class="text-xs font-bold uppercase tracking-wider text-slate-500">Resource
+                                                Review</span>
+                                            <span class="text-xs font-bold">85%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-100 h-2 rounded-full">
+                                            <div class="bg-primary h-2 rounded-full" style="width:85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Group Focus Timer -->
+                            <div class="bg-primary rounded-xl p-4 text-white text-center">
+                                <h4 class="text-sm font-bold">Group Focus Timer</h4>
+                                <p class="text-3xl font-bold mt-2">24 : 56</p>
+                            </div>
+                        </div>
+
+                        <!-- Chat Input -->
+                        <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                            <div
+                                class="flex items-center gap-2 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 border border-slate-200 dark:border-slate-700">
+                                <input class="flex-1 bg-transparent border-none outline-none text-sm"
+                                    placeholder="Ask Buddy AI..." type="text" />
+                                <button
+                                    class="size-8 bg-primary rounded-full flex items-center justify-center text-white">
+                                    <span class="material-symbols-outlined text-sm">send</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Members -->
+                    <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Active Members (5)
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="size-6 rounded-full bg-gradient-to-tr from-pink-400 to-rose-500"></div>
+                                    <span class="text-sm font-medium">Sarah Chen</span>
+                                </div>
+                                <span class="size-2 bg-emerald-400 rounded-full"></span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="size-6 rounded-full bg-gradient-to-tr from-blue-400 to-cyan-500"></div>
+                                    <span class="text-sm font-medium">Marcus J.</span>
+                                </div>
+                                <span class="size-2 bg-emerald-400 rounded-full"></span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="size-6 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500">
+                                    </div>
+                                    <span class="text-sm font-medium">Alex Wong</span>
+                                </div>
+                                <span class="text-xs text-slate-400">AFK</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Log -->
+                    <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Activity Log</p>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-2">
+                                <span class="size-2 bg-primary rounded-full mt-1.5 shrink-0"></span>
+                                <div>
+                                    <p class="text-xs"><strong>Sarah</strong> updated the <strong>Mechanism
+                                            Diagram</strong>.</p>
+                                    <p class="text-xs text-slate-400">2 mins ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="size-2 bg-primary rounded-full mt-1.5 shrink-0"></span>
+                                <div>
+                                    <p class="text-xs"><strong>Marcus</strong> shared <strong>"Sn1
+                                            Summary.pdf"</strong>.</p>
+                                    <p class="text-xs text-slate-400">15 mins ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="size-2 bg-primary rounded-full mt-1.5 shrink-0"></span>
+                                <div>
+                                    <p class="text-xs"><strong>Session Started</strong> for Chemistry Group.</p>
+                                    <p class="text-xs text-slate-400">1 hour ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Deadline -->
+                    <div class="p-4 border-t border-slate-200 dark:border-slate-800">
+                        <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Upcoming Deadline</p>
+                        <p class="text-sm font-bold">Organic Chem Quiz 3</p>
+                        <div class="flex items-center gap-1 mt-1">
+                            <span class="material-symbols-outlined text-sm text-primary">schedule</span>
+                            <span class="text-xs text-primary font-medium">2 Days Left</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
