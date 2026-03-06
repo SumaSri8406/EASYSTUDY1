@@ -63,6 +63,11 @@
                     <span class="text-sm font-medium">Home</span>
                 </a>
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="/flashcards">
+                    <span class="material-symbols-outlined">style</span>
+                    <span class="text-sm font-medium">Flashcards</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     href="#">
                     <span class="material-symbols-outlined">menu_book</span>
                     <span class="text-sm font-medium">My Courses</span>
@@ -293,7 +298,7 @@
                     <!-- Chat Section -->
                     <div class="flex-1 flex flex-col overflow-hidden">
                         <!-- Study Buddy AI -->
-                        <div class="p-4 space-y-4 overflow-y-auto flex-1">
+                        <div id="buddy-chat-messages" class="p-4 space-y-4 overflow-y-auto flex-1">
                             <div class="flex gap-3">
                                 <div
                                     class="size-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
@@ -398,9 +403,10 @@
                         <div class="p-4 border-t border-slate-200 dark:border-slate-800">
                             <div
                                 class="flex items-center gap-2 bg-white dark:bg-slate-800 rounded-xl px-3 py-2 border border-slate-200 dark:border-slate-700">
-                                <input class="flex-1 bg-transparent border-none outline-none text-sm"
+                                <input id="buddy-chat-input"
+                                    class="flex-1 bg-transparent border-none outline-none text-sm"
                                     placeholder="Ask Buddy AI..." type="text" />
-                                <button
+                                <button id="buddy-send-btn"
                                     class="size-8 bg-primary rounded-full flex items-center justify-center text-white">
                                     <span class="material-symbols-outlined text-sm">send</span>
                                 </button>
@@ -481,6 +487,74 @@
             </div>
         </main>
     </div>
+    <script>
+        const buddyMessages = document.getElementById('buddy-chat-messages');
+        const buddyInput = document.getElementById('buddy-chat-input');
+        const buddySendBtn = document.getElementById('buddy-send-btn');
+
+        function appendBuddyMessage(role, content) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = role === 'ai' ? 'flex gap-3' : 'flex gap-3 flex-row-reverse';
+
+            msgDiv.innerHTML = `
+                <div class="${role === 'ai' ? 'size-8 bg-primary/10' : 'size-8 bg-pink-100'} rounded-full flex items-center justify-center shrink-0 mt-1">
+                    ${role === 'ai'
+                    ? '<span class="material-symbols-outlined text-primary text-sm">smart_toy</span>'
+                    : '<span class="text-xs font-bold text-pink-600">ME</span>'}
+                </div>
+                <div class="${role === 'ai' ? 'bg-white dark:bg-slate-800 rounded-xl rounded-tl-sm border border-slate-100 dark:border-slate-700' : 'bg-primary/10 rounded-xl rounded-tr-sm'} p-3 text-sm">
+                    ${content}
+                </div>
+            `;
+            buddyMessages.appendChild(msgDiv);
+            buddyMessages.scrollTop = buddyMessages.scrollHeight;
+        }
+
+        async function handleBuddyChat() {
+            const message = buddyInput.value.trim();
+            if (!message) return;
+
+            buddyInput.value = '';
+            appendBuddyMessage('user', message);
+
+            const loadingId = 'loading-' + Date.now();
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = loadingId;
+            loadingDiv.className = 'flex gap-3 animate-pulse';
+            loadingDiv.innerHTML = `
+                <div class="size-8 bg-primary/10 rounded-full flex items-center justify-center shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+                </div>
+                <div class="bg-slate-100 dark:bg-slate-800 rounded-xl rounded-tl-sm p-3 w-16"></div>
+            `;
+            buddyMessages.appendChild(loadingDiv);
+            buddyMessages.scrollTop = buddyMessages.scrollHeight;
+
+            try {
+                const res = await fetch('/api/buddy-chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+                const data = await res.json();
+
+                document.getElementById(loadingId).remove();
+                if (data.reply) {
+                    appendBuddyMessage('ai', data.reply);
+                } else {
+                    appendBuddyMessage('ai', "Error: " + (data.error || "Unknown error"));
+                }
+            } catch (err) {
+                document.getElementById(loadingId).remove();
+                appendBuddyMessage('ai', "Connection failed.");
+            }
+        }
+
+        buddySendBtn.addEventListener('click', handleBuddyChat);
+        buddyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleBuddyChat();
+        });
+    </script>
 </body>
 
 </html>

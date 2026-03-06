@@ -63,7 +63,7 @@
                     <span class="text-sm font-medium">Study Planner</span>
                 </a>
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    href="#">
+                    href="/flashcards">
                     <span class="material-symbols-outlined">style</span>
                     <span class="text-sm font-medium">Flashcards</span>
                 </a>
@@ -140,84 +140,17 @@
                     </div>
 
                     <!-- Chat Messages -->
-                    <div class="flex-1 overflow-y-auto px-8 py-6 space-y-6">
-                        <!-- AI Message 1 -->
+                    <div id="chat-messages" class="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                        <!-- AI Welcome Message -->
                         <div class="flex gap-3 max-w-3xl">
                             <div class="size-9 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
                                 <span class="material-symbols-outlined text-primary text-lg">smart_toy</span>
                             </div>
                             <div
                                 class="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-sm p-5 shadow-sm border border-slate-100 dark:border-slate-700">
-                                <p class="text-sm leading-relaxed">Hello! Today we're diving into <span
-                                        class="text-primary font-semibold">Quantum Superposition</span>. Think of it
-                                    like a spinning coin—before it lands, it's technically both heads and tails at the
-                                    same time. Ready to explore how this works in particles?</p>
-                                <!-- Concept Cards -->
-                                <div class="grid grid-cols-2 gap-3 mt-4">
-                                    <div
-                                        class="bg-indigo-50 dark:bg-indigo-900/20 rounded-xl p-4 border border-indigo-100 dark:border-indigo-800">
-                                        <span class="material-symbols-outlined text-indigo-500 mb-2">waves</span>
-                                        <h4 class="text-sm font-bold text-indigo-600">Wave Function</h4>
-                                        <p class="text-xs text-slate-500 mt-1">The mathematical description of a quantum
-                                            state.</p>
-                                    </div>
-                                    <div
-                                        class="bg-rose-50 dark:bg-rose-900/20 rounded-xl p-4 border border-rose-100 dark:border-rose-800">
-                                        <span class="material-symbols-outlined text-rose-500 mb-2">visibility</span>
-                                        <h4 class="text-sm font-bold text-rose-600">Observation</h4>
-                                        <p class="text-xs text-slate-500 mt-1">How measuring a system changes its state
-                                            instantly.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- User Message -->
-                        <div class="flex gap-3 max-w-3xl ml-auto flex-row-reverse">
-                            <div class="size-9 bg-amber-100 rounded-full flex items-center justify-center shrink-0">
-                                <span class="material-symbols-outlined text-amber-600 text-lg">person</span>
-                            </div>
-                            <div
-                                class="bg-amber-50 dark:bg-amber-900/20 rounded-2xl rounded-tr-sm p-5 border border-amber-100 dark:border-amber-800">
-                                <p class="text-sm leading-relaxed">That coin analogy helps! But how does this relate to
-                                    Schrödinger's Cat? I've heard that's the famous example.</p>
-                            </div>
-                        </div>
-
-                        <!-- AI Message 2 -->
-                        <div class="flex gap-3 max-w-3xl">
-                            <div class="size-9 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
-                                <span class="material-symbols-outlined text-primary text-lg">smart_toy</span>
-                            </div>
-                            <div
-                                class="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-sm p-5 shadow-sm border border-slate-100 dark:border-slate-700">
-                                <p class="text-sm leading-relaxed mb-4">Exactly! Schrödinger's Cat is a "thought
-                                    experiment" designed to show how weird superposition would be if applied to big
-                                    things like cats. Let's break down the logic:</p>
-                                <!-- Numbered Steps -->
-                                <div class="space-y-3">
-                                    <div
-                                        class="flex items-start gap-3 bg-emerald-50 dark:bg-emerald-900/10 p-4 rounded-xl border-l-4 border-emerald-400">
-                                        <span
-                                            class="size-7 bg-emerald-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">01</span>
-                                        <p class="text-sm">A cat is placed in a sealed box with a tiny bit of
-                                            radioactive substance.</p>
-                                    </div>
-                                    <div
-                                        class="flex items-start gap-3 bg-amber-50 dark:bg-amber-900/10 p-4 rounded-xl border-l-4 border-amber-400">
-                                        <span
-                                            class="size-7 bg-amber-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">02</span>
-                                        <p class="text-sm">According to quantum law, the substance is both decayed and
-                                            NOT decayed until we look.</p>
-                                    </div>
-                                    <div
-                                        class="flex items-start gap-3 bg-rose-50 dark:bg-rose-900/10 p-4 rounded-xl border-l-4 border-rose-400">
-                                        <span
-                                            class="size-7 bg-rose-400 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">03</span>
-                                        <p class="text-sm">Therefore, the cat must be both <strong>alive and
-                                                dead</strong> at the same time until the box is opened.</p>
-                                    </div>
-                                </div>
+                                <p class="text-sm leading-relaxed">Hello! I'm your <b>EasyStudy AI Tutor</b>. I've
+                                    indexed your uploaded materials and I'm ready to help you study. What would you like
+                                    to dive into today?</p>
                             </div>
                         </div>
 
@@ -239,12 +172,12 @@
                             <button class="text-slate-400 hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined">attach_file</span>
                             </button>
-                            <input class="flex-1 bg-transparent border-none outline-none text-sm"
+                            <input id="chat-input" class="flex-1 bg-transparent border-none outline-none text-sm"
                                 placeholder="Ask anything about the topic..." type="text" />
                             <button class="text-slate-400 hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined">mic</span>
                             </button>
-                            <button
+                            <button id="send-btn"
                                 class="size-10 bg-primary rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/30 hover:scale-105 transition-all">
                                 <span class="material-symbols-outlined">send</span>
                             </button>
@@ -333,6 +266,79 @@
             </div>
         </main>
     </div>
+    <script>
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        function appendMessage(role, content, sources = []) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = role === 'ai' ? 'flex gap-3 max-w-3xl' : 'flex gap-3 max-w-3xl ml-auto flex-row-reverse';
+
+            let sourcesHtml = '';
+            if (sources.length > 0) {
+                sourcesHtml = `<div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-700 flex gap-2 overflow-x-auto">
+                    ${sources.map(s => `<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded">Page ${s.page}</span>`).join('')}
+                </div>`;
+            }
+
+            msgDiv.innerHTML = `
+                <div class="${role === 'ai' ? 'size-9 bg-primary/10' : 'size-9 bg-amber-100'} rounded-full flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined ${role === 'ai' ? 'text-primary' : 'text-amber-600'} text-lg">${role === 'ai' ? 'smart_toy' : 'person'}</span>
+                </div>
+                <div class="${role === 'ai' ? 'bg-white dark:bg-slate-800 rounded-2xl rounded-tl-sm' : 'bg-amber-50 dark:bg-amber-900/20 rounded-2xl rounded-tr-sm'} p-5 shadow-sm border ${role === 'ai' ? 'border-slate-100 dark:border-slate-700' : 'border-amber-100 dark:border-amber-800'}">
+                    <p class="text-sm leading-relaxed">${content}</p>
+                    ${sourcesHtml}
+                </div>
+            `;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function handleChat() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            chatInput.value = '';
+            appendMessage('user', message);
+
+            // Show loading state
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'flex gap-3 max-w-3xl animate-pulse';
+            loadingDiv.innerHTML = `
+                <div class="size-9 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-primary text-lg">smart_toy</span>
+                </div>
+                <div class="bg-slate-100 dark:bg-slate-800 rounded-2xl rounded-tl-sm p-4 w-24"></div>
+            `;
+            chatMessages.appendChild(loadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message, use_materials: true })
+                });
+                const data = await res.json();
+
+                loadingDiv.remove();
+                if (data.reply) {
+                    appendMessage('ai', data.reply, data.sources);
+                } else {
+                    appendMessage('ai', "Sorry, I encountered an error: " + (data.error || "Unknown error"));
+                }
+            } catch (err) {
+                loadingDiv.remove();
+                appendMessage('ai', "Network error. Please check if the server is running.");
+            }
+        }
+
+        sendBtn.addEventListener('click', handleChat);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleChat();
+        });
+    </script>
 </body>
 
 </html>

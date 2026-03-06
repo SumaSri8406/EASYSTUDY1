@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#837cfd",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#100f23",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <title>EASYSTUDY - Flashcards</title>
+    <style>
+        .flashcard-container {
+            perspective: 1000px;
+        }
+
+        .flashcard {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- LEFT PANEL -->
+        <aside
+            class="w-64 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-xl flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined fill-1">school</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-none">EasyStudy
+                    </h1>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="/">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="/ai-tutor">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                    <span class="text-sm font-medium">AI Tutor</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="/study-planner">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <span class="text-sm font-medium">Study Planner</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold"
+                    href="/flashcards">
+                    <span class="material-symbols-outlined">style</span>
+                    <span class="text-sm">Flashcards</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    href="/collaboration">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span class="text-sm font-medium">Collaboration</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main
+            class="flex-1 flex flex-col h-full overflow-hidden bg-gradient-to-br from-[#faf9ff] via-[#f0eeff] to-[#e6e3ff] dark:from-[#0d0c1c] dark:via-[#13122c] dark:to-[#1b1940]">
+            <header
+                class="h-14 flex items-center justify-between px-8 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-10">
+                <h2 class="text-xl font-bold">AI Flashcards</h2>
+                <div class="flex items-center gap-4">
+                    <button id="generate-btn"
+                        class="bg-primary text-white px-6 py-2 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                        Generate from PDF
+                    </button>
+                </div>
+            </header>
+
+            <div class="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto">
+                <!-- Empty State -->
+                <div id="empty-state" class="text-center max-w-sm">
+                    <div
+                        class="size-20 bg-[#ece9ff] dark:bg-[#1a1840] shadow-inner rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-[#837cfd] text-4xl">style</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">No Flashcards Yet</h3>
+                    <p class="text-slate-500 text-sm mb-6">Upload a PDF on your dashboard and click "Generate" to create
+                        LangGraph-powered study cards.</p>
+                </div>
+
+                <!-- Flashcard Display -->
+                <div id="flashcard-display" class="hidden w-full max-w-2xl">
+                    <div class="flashcard-container group">
+                        <div id="active-card"
+                            class="flashcard relative w-full aspect-[16/10] rounded-3xl shadow-[0_20px_40px_-15px_rgba(131,124,253,0.3)] dark:shadow-[0_20px_40px_-15px_rgba(131,124,253,0.15)] border border-[#837cfd]/20">
+                            <div
+                                class="flashcard-front absolute inset-0 bg-gradient-to-br from-[#ffffff] to-[#f4f2ff] dark:from-[#21203d] dark:to-[#17162b] rounded-3xl border border-white/50 dark:border-white/5">
+                                <p id="card-question"
+                                    class="text-3xl font-bold leading-tight text-[#837cfd] dark:text-[#a5a0ff]"></p>
+                            </div>
+                            <div
+                                class="flashcard-back absolute inset-0 bg-gradient-to-br from-[#f8f7ff] to-[#ebe8ff] dark:from-[#1c1b33] dark:to-[#121123] rounded-3xl border border-white/50 dark:border-white/5">
+                                <p id="card-answer" class="text-2xl text-slate-700 dark:text-slate-300"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-12">
+                        <button id="prev-btn"
+                            class="p-4 rounded-full bg-white dark:bg-slate-800 shadow-md hover:text-primary transition-all">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                        </button>
+                        <div class="text-center">
+                            <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Card</p>
+                            <p class="text-lg font-bold"><span id="current-idx">1</span> / <span
+                                    id="total-cards">0</span></p>
+                        </div>
+                        <button id="next-btn"
+                            class="p-4 rounded-full bg-white dark:bg-slate-800 shadow-md hover:text-primary transition-all">
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading Overlay -->
+                <div id="loading-overlay"
+                    class="hidden fixed inset-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
+                    <div class="size-16 border-4 border-primary border-t-transparent rounded-full animate-spin mb-6">
+                    </div>
+                    <p class="text-xl font-bold text-primary">LangGraph is analyzing your documents...</p>
+                    <p class="text-slate-500 mt-2">Extracting concepts and generating Q&A pairs</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let cards = [];
+        let currentIndex = 0;
+
+        const generateBtn = document.getElementById('generate-btn');
+        const emptyState = document.getElementById('empty-state');
+        const flashcardDisplay = document.getElementById('flashcard-display');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const activeCard = document.getElementById('active-card');
+        const questionText = document.getElementById('card-question');
+        const answerText = document.getElementById('card-answer');
+        const currentIdxDisplay = document.getElementById('current-idx');
+        const totalCardsDisplay = document.getElementById('total-cards');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+
+        function updateCardDisplay() {
+            if (cards.length === 0) return;
+            const card = cards[currentIndex];
+            questionText.innerText = card.question;
+            answerText.innerText = card.answer;
+            currentIdxDisplay.innerText = currentIndex + 1;
+            totalCardsDisplay.innerText = cards.length;
+            activeCard.classList.remove('flipped');
+        }
+
+        activeCard.addEventListener('click', () => {
+            activeCard.classList.toggle('flipped');
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                updateCardDisplay();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCardDisplay();
+            }
+        });
+
+        generateBtn.addEventListener('click', async () => {
+            loadingOverlay.classList.remove('hidden');
+            try {
+                const res = await fetch('/api/generate-flashcards', { method: 'POST' });
+                const data = await res.json();
+
+                if (data.success && data.flashcards.length > 0) {
+                    cards = data.flashcards;
+                    currentIndex = 0;
+                    emptyState.classList.add('hidden');
+                    flashcardDisplay.classList.remove('hidden');
+                    updateCardDisplay();
+                } else {
+                    alert('Error: ' + (data.error || 'No flashcards were generated. Make sure you have uploaded a document.'));
+                }
+            } catch (err) {
+                alert('Connection error. Is the server running?');
+            } finally {
+                loadingOverlay.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>

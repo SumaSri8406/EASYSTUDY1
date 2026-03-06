@@ -53,9 +53,9 @@
                     <span class="text-sm">Dashboard</span>
                 </a>
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    href="#">
-                    <span class="material-symbols-outlined">folder_open</span>
-                    <span class="text-sm font-medium">Sources</span>
+                    href="/flashcards">
+                    <span class="material-symbols-outlined">style</span>
+                    <span class="text-sm font-medium">Flashcards</span>
                 </a>
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                     href="/ai-tutor">
@@ -80,7 +80,7 @@
             </nav>
             <div class="px-4 py-6 border-t border-slate-200 dark:border-slate-800">
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    href="#">
+                    href="/settings">
                     <span class="material-symbols-outlined">settings</span>
                     <span class="text-sm font-medium">Settings</span>
                 </a>
@@ -280,17 +280,104 @@
                             <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Data Table</span>
                         </button>
                     </div>
+                    <!-- Uploaded Files List -->
+                    <div id="uploaded-files-list" class="mt-6 space-y-2">
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Uploaded Materials
+                        </h3>
+                        {% if loaded_files %}
+                        {% for f in loaded_files %}
+                        <div
+                            class="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 text-xs">
+                            <span class="material-symbols-outlined text-primary text-base">picture_as_pdf</span>
+                            <span class="font-medium text-slate-700 dark:text-slate-300 truncate flex-1">{{ f.name
+                                }}</span>
+                            <span class="text-slate-400">{{ f.pages }} pg</span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p id="no-files-msg" class="text-xs text-slate-400 text-center py-2">No PDFs uploaded yet</p>
+                        {% endif %}
+                    </div>
+
                     <div class="mt-auto pt-6">
-                        <button
+                        <!-- Hidden file input for PDF -->
+                        <input type="file" id="pdf-upload-input" accept=".pdf" style="display:none" />
+                        <!-- Upload button -->
+                        <button id="upload-pdf-btn" onclick="document.getElementById('pdf-upload-input').click()"
                             class="w-full flex items-center justify-center gap-2 bg-primary text-white py-4 rounded-xl font-bold shadow-xl shadow-primary/30 hover:-translate-y-1 transition-all">
-                            <span class="material-symbols-outlined">add_circle</span>
-                            <span>Add New Note</span>
+                            <span class="material-symbols-outlined">upload_file</span>
+                            <span>Upload Study PDF</span>
                         </button>
+                        <!-- Upload status -->
+                        <div id="upload-status" class="mt-3 text-center text-xs font-medium hidden"></div>
                     </div>
                 </aside>
             </div>
         </main>
     </div>
+
+    <script>
+        // PDF Upload Handler
+        document.getElementById('pdf-upload-input').addEventListener('change', async function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const btn = document.getElementById('upload-pdf-btn');
+            const status = document.getElementById('upload-status');
+
+            // Show uploading state
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span><span>Uploading...</span>';
+            status.classList.remove('hidden', 'text-red-500', 'text-emerald-500');
+            status.classList.add('text-slate-500');
+            status.textContent = `Uploading "${file.name}"...`;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'same-origin'
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    status.classList.remove('text-slate-500');
+                    status.classList.add('text-emerald-500');
+                    status.textContent = data.message;
+
+                    // Add file to the list
+                    const list = document.getElementById('uploaded-files-list');
+                    const noMsg = document.getElementById('no-files-msg');
+                    if (noMsg) noMsg.remove();
+
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 text-xs';
+                    item.innerHTML = `
+                        <span class="material-symbols-outlined text-primary text-base">picture_as_pdf</span>
+                        <span class="font-medium text-slate-700 dark:text-slate-300 truncate flex-1">${data.file.name}</span>
+                        <span class="text-slate-400">${data.file.pages} pg</span>
+                    `;
+                    list.appendChild(item);
+                } else {
+                    status.classList.remove('text-slate-500');
+                    status.classList.add('text-red-500');
+                    status.textContent = data.error || 'Upload failed';
+                }
+            } catch (err) {
+                status.classList.remove('text-slate-500');
+                status.classList.add('text-red-500');
+                status.textContent = 'Network error. Is the server running?';
+            }
+
+            // Reset button
+            btn.disabled = false;
+            btn.innerHTML = '<span class="material-symbols-outlined">upload_file</span><span>Upload Study PDF</span>';
+            e.target.value = '';  // Reset file input
+        });
+    </script>
 </body>
 
 </html>
