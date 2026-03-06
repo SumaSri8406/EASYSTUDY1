@@ -52,7 +52,7 @@ METADATA_PATH = os.path.join(UPLOAD_FOLDER, "metadata.json")
 # =========================================================================
 # 🔑 INSERT YOUR GOOGLE GEMINI API KEY ON THE LINE BELOW (Line 43)
 # =========================================================================
-GOOGLE_API_KEY = "AIzaSyDr1T1yV84WTJ6CT8KMw63PtobiNaV43z0"
+GOOGLE_API_KEY = "google_API_KEY"
 
 # ✅ FIX 4: Wrap LLM init in try/except to catch bad API key early
 try:
