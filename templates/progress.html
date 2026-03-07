@@ -1,0 +1,292 @@
+{% extends 'layout.html' %}
+
+{% block title %}Progress | EASYSTUDY{% endblock %}
+
+{% block content %}
+<div class="h-full overflow-y-auto p-8 space-y-8 scroll-smooth">
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+            <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Learning Progress</h2>
+            <p class="text-slate-500 mt-2">Track your mastery, study time, and academic achievements.</p>
+        </div>
+        <div
+            class="flex items-center gap-2 p-1 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <button
+                class="px-4 py-2 rounded-lg text-xs font-bold bg-primary text-white shadow-lg shadow-primary/20 transition-all">Last
+                7 Days</button>
+            <button
+                class="px-4 py-2 rounded-lg text-xs font-medium text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">Last
+                30 Days</button>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Study Time -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <div class="size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined">timer</span>
+                </div>
+                <span
+                    class="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-full">+12%</span>
+            </div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Study Time</p>
+            <p class="text-2xl font-bold mt-1">24h 42m</p>
+        </div>
+        <!-- Concepts Mastered -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <div class="size-10 rounded-xl bg-emerald-100 text-emerald-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined">emoji_events</span>
+                </div>
+                <span class="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-full">+5</span>
+            </div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Concepts Mastered</p>
+            <p class="text-2xl font-bold mt-1">128</p>
+        </div>
+        <!-- Flashcards Review -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <div class="size-10 rounded-xl bg-amber-100 text-amber-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined">style</span>
+                </div>
+                <span class="text-[10px] font-bold text-amber-500 bg-amber-500/10 px-2 py-1 rounded-full">85%
+                    Acc.</span>
+            </div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Cards Reviewed</p>
+            <p class="text-2xl font-bold mt-1">450</p>
+        </div>
+        <!-- Current Streak -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <div class="size-10 rounded-xl bg-rose-100 text-rose-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined">local_fire_department</span>
+                </div>
+                <span class="text-[10px] font-bold text-rose-500 bg-rose-500/10 px-2 py-1 rounded-full">New PB!</span>
+            </div>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Current Streak</p>
+            <p class="text-2xl font-bold mt-1">12 Days</p>
+        </div>
+    </div>
+
+    <!-- Main Analytics Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Subject Performance -->
+        <div
+            class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                <h3 class="font-bold text-lg">Subject Performance</h3>
+                <span class="material-symbols-outlined text-slate-400 cursor-help"
+                    title="Based on quiz results and study time">info</span>
+            </div>
+            <div class="p-8 space-y-8">
+                <!-- Subject 1 -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="size-8 bg-indigo-100 text-indigo-500 rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-sm">science</span></span>
+                            <span class="font-bold text-sm">Quantum Physics</span>
+                        </div>
+                        <span class="text-sm font-bold">82%</span>
+                    </div>
+                    <div class="h-3 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-indigo-500 rounded-full w-[82%] relative">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/20"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subject 2 -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="size-8 bg-emerald-100 text-emerald-500 rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-sm">biotech</span></span>
+                            <span class="font-bold text-sm">Organic Chemistry</span>
+                        </div>
+                        <span class="text-sm font-bold">64%</span>
+                    </div>
+                    <div class="h-3 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-emerald-500 rounded-full w-[64%] relative">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/20"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subject 3 -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="size-8 bg-amber-100 text-amber-500 rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-sm">functions</span></span>
+                            <span class="font-bold text-sm">Advanced Calculus</span>
+                        </div>
+                        <span class="text-sm font-bold">45%</span>
+                    </div>
+                    <div class="h-3 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-amber-500 rounded-full w-[45%] relative">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/20"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subject 4 -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="size-8 bg-rose-100 text-rose-500 rounded-lg flex items-center justify-center"><span
+                                    class="material-symbols-outlined text-sm">history_edu</span></span>
+                            <span class="font-bold text-sm">World History</span>
+                        </div>
+                        <span class="text-sm font-bold">94%</span>
+                    </div>
+                    <div class="h-3 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-rose-500 rounded-full w-[94%] relative">
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-white/20"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Activity Heatmap -->
+        <div
+            class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+                <h3 class="font-bold text-lg">Weekly Activity</h3>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-center">
+                <div class="grid grid-cols-7 gap-3">
+                    {% for day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] %}
+                    <div class="flex flex-col items-center gap-2">
+                        <div
+                            class="w-full aspect-[2/3] bg-slate-50 dark:bg-slate-800 rounded-xl relative flex items-end overflow-hidden">
+                            <!-- Activity Bar -->
+                            {% set height = [20, 80, 45, 95, 60, 30, 75][loop.index0] %}
+                            <div class="w-full bg-primary/20 absolute inset-0"></div>
+                            <div class="w-full bg-primary rounded-t-lg transition-all duration-1000 ease-out"
+                                style="height: {{ height }}%;">
+                                <div
+                                    class="absolute top-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="text-[8px] font-bold text-white bg-slate-900/80 px-1 rounded">{{ height
+                                        }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ day }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-slate-500">Weekly Target</span>
+                        <span class="text-xs font-bold text-primary">85% Achieved</span>
+                    </div>
+                    <div class="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary rounded-full w-[85%]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Section: Recent Milestones & Badges -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Recent Milestones -->
+        <div
+            class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800">
+                <h3 class="font-bold text-lg">Recent Milestones</h3>
+            </div>
+            <div class="divide-y divide-slate-50 dark:divide-slate-800">
+                <div class="p-6 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    <div
+                        class="size-10 rounded-full bg-emerald-100 text-emerald-500 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-xl">verified</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold">Mastered: Wave-Particle Duality</p>
+                        <p class="text-xs text-slate-500 mt-1">Achieved 100% accuracy in Quantum Physics quiz.</p>
+                        <p class="text-[10px] text-slate-400 mt-2 font-medium">2 hours ago</p>
+                    </div>
+                </div>
+                <div class="p-6 flex items-start gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    <div
+                        class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-xl">auto_stories</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold">Completed: Organic Chem Module 4</p>
+                        <p class="text-xs text-slate-500 mt-1">Finished all reading materials and 25 flashcards.</p>
+                        <p class="text-[10px] text-slate-400 mt-2 font-medium">Yesterday at 4:30 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Badges & Achievements -->
+        <div
+            class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                <h3 class="font-bold text-lg">Achievements</h3>
+                <button class="text-xs font-bold text-primary hover:underline">View All</button>
+            </div>
+            <div class="p-8 grid grid-cols-4 gap-6">
+                <!-- Badge 1 -->
+                <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                    <div
+                        class="size-14 rounded-full bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center ring-2 ring-amber-200 dark:ring-amber-800 border-4 border-white dark:border-slate-900 shadow-sm group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-2xl text-amber-500">military_tech</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-center text-slate-500">Early Bird</span>
+                </div>
+                <!-- Badge 2 -->
+                <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                    <div
+                        class="size-14 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center ring-2 ring-blue-200 dark:ring-blue-800 border-4 border-white dark:border-slate-900 shadow-sm group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-2xl text-blue-500">bolt</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-center text-slate-500">Fast Learner</span>
+                </div>
+                <!-- Badge 3 -->
+                <div class="flex flex-col items-center gap-2 group cursor-pointer">
+                    <div
+                        class="size-14 rounded-full bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center ring-2 ring-emerald-200 dark:ring-emerald-800 border-4 border-white dark:border-slate-900 shadow-sm group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-2xl text-emerald-500">auto_fix_high</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-center text-slate-500">AI Expert</span>
+                </div>
+                <!-- Badge 4 (Locked) -->
+                <div class="flex flex-col items-center gap-2 grayscale opacity-40">
+                    <div
+                        class="size-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center ring-2 ring-slate-200 dark:ring-slate-700 border-4 border-white dark:border-slate-900 shadow-sm">
+                        <span class="material-symbols-outlined text-2xl text-slate-500">lock</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-center text-slate-500">Century Club</span>
+                </div>
+            </div>
+            <div class="px-8 pb-8">
+                <div
+                    class="bg-primary/5 dark:bg-primary/10 rounded-xl p-4 border border-primary/10 flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary">psychology</span>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed">You're in the
+                        <span class="text-primary font-bold">top 5%</span> of learners this week. Keep going!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Progress screen specific logic (e.g. dynamic chart updates)
+    window.addEventListener('globalSearch', (e) => {
+        // Implementation for search on progress page if needed
+    });
+</script>
+{% endblock %}

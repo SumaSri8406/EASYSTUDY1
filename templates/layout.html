@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themes.css') }}">
+    <script src="{{ url_for('static', filename='js/themes.js') }}"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#837cfd",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#100f23",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <title>{% block title %}EASYSTUDY{% endblock %}</title>
+    {% block additional_head %}{% endblock %}
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- SIDEBAR BACKDROP (Click to close when open) -->
+        <div id="sidebar-backdrop"
+            class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-20 hidden transition-opacity duration-300 opacity-0">
+        </div>
+
+        <!-- LEFT PANEL (256px) -->
+        <aside id="sidebar"
+            class="fixed inset-y-0 left-0 w-64 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 transition-transform duration-300 ease-in-out -translate-x-full z-30 shadow-2xl">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-10 bg-primary rounded-xl flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined fill-1">school</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-none">EASYSTUDY
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium mt-1">Study Smarter</p>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl {% if request.path == '/dashboard' or request.path == '/' %}bg-primary/10 text-primary font-semibold{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors{% endif %}"
+                    href="/dashboard">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="text-sm">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl {% if request.path == '/flashcards' %}bg-primary/10 text-primary font-semibold{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors{% endif %}"
+                    href="/flashcards">
+                    <span class="material-symbols-outlined">style</span>
+                    <span class="text-sm">Flashcards</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl {% if request.path == '/ai-tutor' %}bg-primary/10 text-primary font-semibold{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors{% endif %}"
+                    href="/ai-tutor">
+                    <span class="material-symbols-outlined">smart_toy</span>
+                    <span class="text-sm">AI Tutor</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl {% if request.path == '/study-planner' %}bg-primary/10 text-primary font-semibold{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors{% endif %}"
+                    href="/study-planner">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <span class="text-sm">Study Planner</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl {% if request.path == '/collaboration' %}bg-primary/10 text-primary font-semibold{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors{% endif %}"
+                    href="/collaboration">
+                    <span class="material-symbols-outlined">groups</span>
+                    <span class="text-sm">Collaboration</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl {% if request.path == '/progress' %}bg-primary/10 text-primary font-semibold{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors{% endif %}"
+                    href="/progress">
+                    <span class="material-symbols-outlined">trending_up</span>
+                    <span class="text-sm">Progress</span>
+                </a>
+            </nav>
+            <div class="px-4 py-6 border-t border-slate-200 dark:border-slate-800">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl {% if request.path == '/settings' %}bg-primary/10 text-primary font-semibold{% else %}text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors{% endif %}"
+                    href="/settings">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text-sm">Settings</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden">
+            <!-- TOP HEADER -->
+            <header
+                class="h-16 flex items-center justify-between px-8 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-[100] gap-4">
+                <button id="sidebar-toggle"
+                    class="size-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all shrink-0">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="flex-1 max-w-xl">
+                    <div class="relative group">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+                        <input id="global-search"
+                            class="w-full bg-slate-100 dark:bg-slate-800 border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                            placeholder="Search your sources, notes, or tutors..." type="text" />
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <button id="notification-btn"
+                            class="size-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all relative">
+                            <span class="material-symbols-outlined">notifications</span>
+                            <span
+                                class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"></span>
+                        </button>
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown"
+                            class="absolute right-0 mt-3 w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 z-[110] py-4 hidden">
+                            <div
+                                class="px-6 pb-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                                <h3 class="font-bold">Notifications</h3>
+                                <span class="text-[10px] font-bold text-primary uppercase tracking-widest">2 New</span>
+                            </div>
+                            <div class="max-h-64 overflow-y-auto">
+                                <div
+                                    class="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors border-b border-slate-50 dark:border-slate-700/50">
+                                    <p class="text-xs font-bold">Flashcards Generated! ✨</p>
+                                    <p class="text-[10px] text-slate-500 mt-1">Your new study set is ready for review.
+                                    </p>
+                                </div>
+                                <div
+                                    class="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors">
+                                    <p class="text-xs font-bold">New Version Available</p>
+                                    <p class="text-[10px] text-slate-500 mt-1">Check out the latest AI Tutor
+                                        improvements.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+                    <a href="/settings" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold leading-none">{{ user.name }}</p>
+                            <p class="text-xs text-slate-500 font-medium mt-1">{{ user.role }}</p>
+                        </div>
+                        <div
+                            class="size-10 rounded-full border-2 border-primary/20 p-0.5 bg-gradient-to-tr from-primary to-purple-400">
+                            <img class="w-full h-full rounded-full object-cover" alt="User profile avatar"
+                                src="{{ user.avatar or 'https://lh3.googleusercontent.com/aida-public/AB6AXuC7ngvSJKG3TlxcO61-223YpQw8VjRmjShRRX7gH7pcyRm_lV1kBLdJEcsgG9VZwhHA0H-_nSMduWIl09hdCxmE1l2UiOqQbva53CE1vdz7G2ugu4GmCzBOEsvFD2e_043Le5vSCYPMnkDO1hjgJmIwsMEXkdA4MTKtBIeLP7ub8eWIJJ0z85FaNT5Ou1hYf6dKPdGf27MX3o1kn2qu4-i0ZoXH4Bz3OFqeVpAVwrIuVYKSQLaPdYM9XDlDNZaPR5K3UX4-UEYyt8Y' }}" />
+                        </div>
+                    </a>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT BLOCK -->
+            <div class="flex-1 overflow-hidden">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar Toggle Logic
+        const sidebar = document.getElementById('sidebar');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const toggleIcon = sidebarToggle.querySelector('.material-symbols-outlined');
+
+        let isSidebarOpen = false;
+
+        function toggleSidebar(open) {
+            isSidebarOpen = open;
+            if (isSidebarOpen) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarBackdrop.classList.remove('hidden');
+                setTimeout(() => {
+                    sidebarBackdrop.classList.add('opacity-100');
+                }, 10);
+                toggleIcon.textContent = 'menu_open';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebarBackdrop.classList.remove('opacity-100');
+                setTimeout(() => {
+                    if (!isSidebarOpen) sidebarBackdrop.classList.add('hidden');
+                }, 300);
+                toggleIcon.textContent = 'menu';
+            }
+        }
+
+        sidebarToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSidebar(!isSidebarOpen);
+        });
+
+        // Close sidebar when clicking backdrop
+        sidebarBackdrop.addEventListener('click', () => {
+            toggleSidebar(false);
+        });
+
+        // Close sidebar on escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isSidebarOpen) {
+                toggleSidebar(false);
+            }
+        });
+
+        // Notifications
+        const notificationBtn = document.getElementById('notification-btn');
+        const notificationDropdown = document.getElementById('notification-dropdown');
+
+        notificationBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            notificationDropdown.classList.toggle('hidden');
+        });
+
+        // Global Search (Placeholder for page-specific logic)
+        const globalSearch = document.getElementById('global-search');
+        globalSearch.addEventListener('input', (e) => {
+            // Emitting custom event for page-specific search logic
+            const searchEvent = new CustomEvent('globalSearch', {
+                detail: { query: e.target.value.toLowerCase() }
+            });
+            window.dispatchEvent(searchEvent);
+        });
+
+        // Close dropdowns on click outside
+        window.addEventListener('click', () => {
+            notificationDropdown.classList.add('hidden');
+        });
+
+        notificationDropdown.addEventListener('click', (e) => e.stopPropagation());
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

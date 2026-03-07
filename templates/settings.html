@@ -1,0 +1,225 @@
+{% extends 'layout.html' %}
+
+{% block title %}Settings | EASYSTUDY{% endblock %}
+
+{% block content %}
+<div class="h-full flex overflow-hidden">
+    <!-- SETTINGS MAIN AREA -->
+    <section class="flex-1 overflow-y-auto p-8 scroll-smooth">
+        <div class="max-w-4xl mx-auto space-y-12">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Settings</h2>
+                <p class="text-slate-500 mt-2">Manage your account preferences, themes, and AI configurations.</p>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">person</span>
+                    <h3 class="text-lg font-bold">Profile Information</h3>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-8 shadow-sm space-y-8">
+                    <div class="flex flex-col sm:flex-row items-center gap-8">
+                        <div class="relative group">
+                            <div
+                                class="size-24 rounded-full border-4 border-primary/20 p-1 bg-gradient-to-tr from-primary to-purple-400 overflow-hidden">
+                                <img id="profile-avatar-preview" class="w-full h-full rounded-full object-cover"
+                                    src="{{ user.avatar or 'https://lh3.googleusercontent.com/aida-public/AB6AXuC7ngvSJKG3TlxcO61-223YpQw8VjRmjShRRX7gH7pcyRm_lV1kBLdJEcsgG9VZwhHA0H-_nSMduWIl09hdCxmE1l2UiOqQbva53CE1vdz7G2ugu4GmCzBOEsvFD2e_043Le5vSCYPMnkDO1hjgJmIwsMEXkdA4MTKtBIeLP7ub8eWIJJ0z85FaNT5Ou1hYf6dKPdGf27MX3o1kn2qu4-i0ZoXH4Bz3OFqeVpAVwrIuVYKSQLaPdYM9XDlDNZaPR5K3UX4-UEYyt8Y' }}"
+                                    alt="Profile avatar" />
+                            </div>
+                            <button
+                                class="absolute bottom-0 right-0 size-8 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-primary transition-all">
+                                <span class="material-symbols-outlined text-sm">photo_camera</span>
+                            </button>
+                        </div>
+                        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">Full
+                                    Name</label>
+                                <input id="profile-name" type="text" value="{{ user.name }}"
+                                    class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all outline-none" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">Email
+                                    Address</label>
+                                <input id="profile-email" type="email" value="{{ user.email }}"
+                                    class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all outline-none" />
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">Educational
+                                    Role</label>
+                                <select id="profile-role"
+                                    class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all outline-none appearance-none">
+                                    <option value="Pro Member" {% if user.role=='Pro Member' %}selected{% endif %}>Pro
+                                        Member</option>
+                                    <option value="Sophomore" {% if user.role=='Sophomore' %}selected{% endif %}>
+                                        Sophomore</option>
+                                    <option value="Freshman" {% if user.role=='Freshman' %}selected{% endif %}>Freshman
+                                    </option>
+                                    <option value="Senior" {% if user.role=='Senior' %}selected{% endif %}>Senior
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end pt-4">
+                        <button id="save-profile-btn"
+                            class="bg-primary text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">Save
+                            Changes</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appearance Section -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">palette</span>
+                    <h3 class="text-lg font-bold">Appearance</h3>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-8 shadow-sm">
+                    <p class="text-sm text-slate-500 mb-6">Choose how EASYSTUDY looks on your device.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <!-- Light Theme -->
+                        <button data-set-theme="light"
+                            class="group relative flex flex-col items-center gap-4 p-4 rounded-2xl border-2 transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
+                            <div
+                                class="w-full aspect-video bg-slate-100 rounded-lg overflow-hidden border border-slate-200">
+                                <div class="w-1/3 h-full bg-white border-r"></div>
+                            </div>
+                            <span class="text-sm font-bold">Light Mode</span>
+                            <div
+                                class="theme-check absolute -top-2 -right-2 size-6 bg-primary text-white rounded-full flex items-center justify-center opacity-0 scale-50 transition-all">
+                                <span class="material-symbols-outlined text-xs">check</span>
+                            </div>
+                        </button>
+                        <!-- Dark Theme -->
+                        <button data-set-theme="dark"
+                            class="group relative flex flex-col items-center gap-4 p-4 rounded-2xl border-2 transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
+                            <div
+                                class="w-full aspect-video bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
+                                <div class="w-1/3 h-full bg-slate-900 border-r border-slate-700"></div>
+                            </div>
+                            <span class="text-sm font-bold">Dark Mode</span>
+                            <div
+                                class="theme-check absolute -top-2 -right-2 size-6 bg-primary text-white rounded-full flex items-center justify-center opacity-0 scale-50 transition-all">
+                                <span class="material-symbols-outlined text-xs">check</span>
+                            </div>
+                        </button>
+                        <!-- Neon Theme -->
+                        <button data-set-theme="neon"
+                            class="group relative flex flex-col items-center gap-4 p-4 rounded-2xl border-2 transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
+                            <div
+                                class="w-full aspect-video bg-slate-950 rounded-lg overflow-hidden border border-primary/30">
+                                <div class="w-2 h-full bg-primary/20 blur-sm"></div>
+                            </div>
+                            <span class="text-sm font-bold text-primary">Neon Pulsar</span>
+                            <div
+                                class="theme-check absolute -top-2 -right-2 size-6 bg-primary text-white rounded-full flex items-center justify-center opacity-0 scale-50 transition-all">
+                                <span class="material-symbols-outlined text-xs">check</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Section -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">lock</span>
+                    <h3 class="text-lg font-bold">Security</h3>
+                </div>
+                <div
+                    class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 p-8 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-bold">Two-Factor Authentication</p>
+                            <p class="text-xs text-slate-500 mt-1">Add an extra layer of security to your account.</p>
+                        </div>
+                        <button class="w-12 h-6 bg-slate-200 dark:bg-slate-700 rounded-full relative transition-colors">
+                            <div class="size-4 bg-white rounded-full absolute left-1 top-1 shadow-sm"></div>
+                        </button>
+                    </div>
+                    <div class="h-px bg-slate-100 dark:bg-slate-800"></div>
+                    <button class="text-sm font-bold text-primary hover:underline transition-all">Change
+                        Password</button>
+                </div>
+            </div>
+
+            <div class="pt-8 text-center text-xs text-slate-400">
+                <p>EASYSTUDY v2.4.0 — Made with ❤️ for Students</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    /* Styling for active theme selection box */
+    [data-set-theme].active {
+        border-color: #837cfd;
+        background-color: rgba(131, 124, 253, 0.05);
+        box-shadow: 0 10px 15px -3px rgba(131, 124, 253, 0.1);
+    }
+
+    [data-set-theme].active .theme-check {
+        opacity: 1;
+        transform: scale(1);
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Profile Management
+    const saveProfileBtn = document.getElementById('save-profile-btn');
+    const nameInput = document.getElementById('profile-name');
+    const emailInput = document.getElementById('profile-email');
+    const roleSelect = document.getElementById('profile-role');
+
+    saveProfileBtn.addEventListener('click', async () => {
+        const originalText = saveProfileBtn.textContent;
+        saveProfileBtn.disabled = true;
+        saveProfileBtn.textContent = 'Saving...';
+
+        const data = {
+            name: nameInput.value,
+            email: emailInput.value,
+            role: roleSelect.value
+        };
+
+        try {
+            const res = await fetch('/api/profile/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+
+            if (result.success) {
+                // Flash success state
+                saveProfileBtn.classList.replace('bg-primary', 'bg-emerald-500');
+                saveProfileBtn.textContent = 'Updated ✅';
+
+                // Update header info if needed
+                setTimeout(() => {
+                    saveProfileBtn.classList.replace('bg-emerald-500', 'bg-primary');
+                    saveProfileBtn.textContent = originalText;
+                    saveProfileBtn.disabled = false;
+                    // Trigger a reload or just let the session handle it on next refresh
+                    location.reload();
+                }, 2000);
+            }
+        } catch (err) {
+            alert('Failed to update profile');
+            saveProfileBtn.textContent = originalText;
+            saveProfileBtn.disabled = false;
+        }
+    });
+
+    // Theme Management is already handled by themes.js, 
+    // but we can add visual feedback for the buttons here if themes.js doesn't do it perfectly.
+    // themes.js already has setTheme(themeName) which looks for [data-set-theme] buttons.
+</script>
+{% endblock %}

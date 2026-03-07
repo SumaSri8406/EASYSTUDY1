@@ -1,247 +1,278 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout.html' %}
 
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#837cfd",
-                        "background-light": "#f6f5f8",
-                        "background-dark": "#100f23",
-                    },
-                    fontFamily: {
-                        "display": ["Plus Jakarta Sans", "Inter", "sans-serif"]
-                    },
-                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
-                },
-            },
-        }
-    </script>
-    <title>EASYSTUDY - Flashcards</title>
-    <style>
-        .flashcard-container {
-            perspective: 1000px;
-        }
+{% block title %}Flashcards | EASYSTUDY{% endblock %}
 
-        .flashcard {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
+{% block content %}
+<div class="h-full flex overflow-hidden">
+    <!-- FLASHCARDS MAIN AREA -->
+    <section class="flex-1 flex flex-col p-8 space-y-8 overflow-y-auto">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight">Flashcards</h2>
+                <p class="text-slate-500 mt-1">Master key concepts with AI-generated review cards.</p>
+            </div>
+            <button id="generate-flashcards-btn"
+                class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                <span class="material-symbols-outlined text-sm">bolt</span>
+                <span>Generate from Source</span>
+            </button>
+        </div>
 
-        .flashcard.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .flashcard-front,
-        .flashcard-back {
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .flashcard-back {
-            transform: rotateY(180deg);
-        }
-    </style>
-</head>
-
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-    <div class="flex h-screen overflow-hidden">
-        <!-- LEFT PANEL -->
-        <aside
-            class="w-64 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0">
-            <div class="p-6 flex items-center gap-3">
-                <div class="size-10 bg-primary rounded-xl flex items-center justify-center text-white">
-                    <span class="material-symbols-outlined fill-1">school</span>
+        <!-- Progress Stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div
+                class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                <div class="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                    <span class="material-symbols-outlined text-2xl">style</span>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-none">EasyStudy
-                    </h1>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">To Review</p>
+                    <p id="to-review-count" class="text-2xl font-bold">12</p>
                 </div>
             </div>
-            <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    href="/">
-                    <span class="material-symbols-outlined">dashboard</span>
-                    <span class="text-sm font-medium">Dashboard</span>
-                </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    href="/ai-tutor">
-                    <span class="material-symbols-outlined">smart_toy</span>
-                    <span class="text-sm font-medium">AI Tutor</span>
-                </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    href="/study-planner">
-                    <span class="material-symbols-outlined">calendar_today</span>
-                    <span class="text-sm font-medium">Study Planner</span>
-                </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-semibold"
-                    href="/flashcards">
-                    <span class="material-symbols-outlined">style</span>
-                    <span class="text-sm">Flashcards</span>
-                </a>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    href="/collaboration">
-                    <span class="material-symbols-outlined">groups</span>
-                    <span class="text-sm font-medium">Collaboration</span>
-                </a>
-            </nav>
-        </aside>
+            <div
+                class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                <div class="size-12 rounded-xl bg-emerald-100 text-emerald-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-2xl">check_circle</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mastered</p>
+                    <p id="mastered-count" class="text-2xl font-bold">48</p>
+                </div>
+            </div>
+            <div
+                class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                <div class="size-12 rounded-xl bg-amber-100 text-amber-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-2xl">trending_up</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Streak</p>
+                    <p class="text-2xl font-bold">5 Days</p>
+                </div>
+            </div>
+        </div>
 
-        <!-- MAIN CONTENT -->
-        <main
-            class="flex-1 flex flex-col h-full overflow-hidden bg-gradient-to-br from-[#faf9ff] via-[#f0eeff] to-[#e6e3ff] dark:from-[#0d0c1c] dark:via-[#13122c] dark:to-[#1b1940]">
-            <header
-                class="h-14 flex items-center justify-between px-8 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-10">
-                <h2 class="text-xl font-bold">AI Flashcards</h2>
-                <div class="flex items-center gap-4">
-                    <button id="generate-btn"
-                        class="bg-primary text-white px-6 py-2 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-2">
-                        <span class="material-symbols-outlined text-sm">auto_awesome</span>
-                        Generate from PDF
+        <!-- Flashcard Display -->
+        <div id="flashcard-container" class="flex-1 flex flex-col items-center justify-center min-h-[400px]">
+            <!-- Initial State -->
+            <div id="no-cards-msg" class="text-center space-y-4">
+                <div
+                    class="size-24 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto text-slate-300">
+                    <span class="material-symbols-outlined text-5xl">style</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-700 dark:text-slate-300">No Flashcards Yet</h3>
+                <p class="text-slate-500 max-w-sm mx-auto">Upload a PDF and click "Generate" to create
+                    personalized flashcards from your study materials.</p>
+            </div>
+
+            <!-- Card View -->
+            <div id="flashcard-viewer" class="w-full max-w-lg perspective-1000 hidden">
+                <div id="flashcard"
+                    class="relative w-full h-80 transition-transform duration-500 transform-style-3d cursor-pointer">
+                    <!-- Front -->
+                    <div
+                        class="absolute inset-0 backface-hidden bg-white dark:bg-slate-900 border-2 border-primary/20 rounded-3xl p-10 flex flex-col items-center justify-center text-center shadow-xl">
+                        <span
+                            class="absolute top-6 left-8 text-[10px] font-bold text-primary uppercase tracking-widest">Question</span>
+                        <p id="card-question" class="text-xl font-medium leading-relaxed"></p>
+                        <p class="absolute bottom-6 text-xs text-slate-400 font-medium">Click to flip</p>
+                    </div>
+                    <!-- Back -->
+                    <div
+                        class="absolute inset-0 backface-hidden bg-primary text-white rounded-3xl p-10 flex flex-col items-center justify-center text-center shadow-xl rotate-y-180">
+                        <span
+                            class="absolute top-6 left-8 text-[10px] font-bold text-white/70 uppercase tracking-widest">Answer</span>
+                        <p id="card-answer" class="text-lg leading-relaxed"></p>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex items-center justify-between mt-10 w-full px-4">
+                    <button id="prev-btn"
+                        class="size-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:border-primary transition-all">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <div class="flex items-center gap-4">
+                        <button id="fail-btn"
+                            class="px-6 py-2.5 rounded-xl border-2 border-rose-200 text-rose-500 font-bold text-sm hover:bg-rose-50 transition-all">Again</button>
+                        <button id="success-btn"
+                            class="px-6 py-2.5 rounded-xl border-2 border-emerald-200 text-emerald-500 font-bold text-sm hover:bg-emerald-50 transition-all">Easy</button>
+                    </div>
+                    <button id="next-btn"
+                        class="size-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:border-primary transition-all">
+                        <span class="material-symbols-outlined">chevron_right</span>
                     </button>
                 </div>
-            </header>
+                <p id="card-index" class="text-center mt-6 text-xs font-bold text-slate-400 uppercase tracking-widest">
+                </p>
+            </div>
+        </div>
+    </section>
 
-            <div class="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto">
-                <!-- Empty State -->
-                <div id="empty-state" class="text-center max-w-sm">
-                    <div
-                        class="size-20 bg-[#ece9ff] dark:bg-[#1a1840] shadow-inner rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="material-symbols-outlined text-[#837cfd] text-4xl">style</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">No Flashcards Yet</h3>
-                    <p class="text-slate-500 text-sm mb-6">Upload a PDF on your dashboard and click "Generate" to create
-                        LangGraph-powered study cards.</p>
-                </div>
-
-                <!-- Flashcard Display -->
-                <div id="flashcard-display" class="hidden w-full max-w-2xl">
-                    <div class="flashcard-container group">
-                        <div id="active-card"
-                            class="flashcard relative w-full aspect-[16/10] rounded-3xl shadow-[0_20px_40px_-15px_rgba(131,124,253,0.3)] dark:shadow-[0_20px_40px_-15px_rgba(131,124,253,0.15)] border border-[#837cfd]/20">
-                            <div
-                                class="flashcard-front absolute inset-0 bg-gradient-to-br from-[#ffffff] to-[#f4f2ff] dark:from-[#21203d] dark:to-[#17162b] rounded-3xl border border-white/50 dark:border-white/5">
-                                <p id="card-question"
-                                    class="text-3xl font-bold leading-tight text-[#837cfd] dark:text-[#a5a0ff]"></p>
-                            </div>
-                            <div
-                                class="flashcard-back absolute inset-0 bg-gradient-to-br from-[#f8f7ff] to-[#ebe8ff] dark:from-[#1c1b33] dark:to-[#121123] rounded-3xl border border-white/50 dark:border-white/5">
-                                <p id="card-answer" class="text-2xl text-slate-700 dark:text-slate-300"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-12">
-                        <button id="prev-btn"
-                            class="p-4 rounded-full bg-white dark:bg-slate-800 shadow-md hover:text-primary transition-all">
-                            <span class="material-symbols-outlined">arrow_back</span>
-                        </button>
-                        <div class="text-center">
-                            <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Card</p>
-                            <p class="text-lg font-bold"><span id="current-idx">1</span> / <span
-                                    id="total-cards">0</span></p>
-                        </div>
-                        <button id="next-btn"
-                            class="p-4 rounded-full bg-white dark:bg-slate-800 shadow-md hover:text-primary transition-all">
-                            <span class="material-symbols-outlined">arrow_forward</span>
-                        </button>
+    <!-- RIGHT PANEL -->
+    <aside
+        class="w-80 h-full bg-slate-50 dark:bg-slate-900/50 border-l border-slate-200 dark:border-slate-800 p-6 space-y-8 flex flex-col shrink-0 overflow-y-auto">
+        <div>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Study Sets</h3>
+            <div class="space-y-3">
+                <div
+                    class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary/20 ring-2 ring-primary/5 cursor-pointer">
+                    <h4 class="text-sm font-bold">Active: Current PDF</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">Generated 5 mins ago</p>
+                    <div class="mt-3 h-1.5 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-primary w-1/4"></div>
                     </div>
                 </div>
-
-                <!-- Loading Overlay -->
-                <div id="loading-overlay"
-                    class="hidden fixed inset-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
-                    <div class="size-16 border-4 border-primary border-t-transparent rounded-full animate-spin mb-6">
-                    </div>
-                    <p class="text-xl font-bold text-primary">LangGraph is analyzing your documents...</p>
-                    <p class="text-slate-500 mt-2">Extracting concepts and generating Q&A pairs</p>
+                <div
+                    class="p-4 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/30 transition-all cursor-pointer">
+                    <h4 class="text-sm font-bold">Introduction to Bio</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">128 cards • 92% Mastered</p>
+                </div>
+                <div
+                    class="p-4 bg-white/50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/30 transition-all cursor-pointer">
+                    <h4 class="text-sm font-bold">Physics Midterm</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">45 cards • 64% Mastered</p>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
 
-    <script>
-        let cards = [];
-        let currentIndex = 0;
+        <div>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Mastery Breakdown</h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between text-[11px] font-bold">
+                    <span class="text-emerald-500 uppercase">Mastered</span>
+                    <span>48 Cards</span>
+                </div>
+                <div class="h-2 w-full bg-slate-100 dark:bg-slate-700 rounded-full">
+                    <div class="h-full bg-emerald-500 rounded-full w-[80%]"></div>
+                </div>
 
-        const generateBtn = document.getElementById('generate-btn');
-        const emptyState = document.getElementById('empty-state');
-        const flashcardDisplay = document.getElementById('flashcard-display');
-        const loadingOverlay = document.getElementById('loading-overlay');
-        const activeCard = document.getElementById('active-card');
-        const questionText = document.getElementById('card-question');
-        const answerText = document.getElementById('card-answer');
-        const currentIdxDisplay = document.getElementById('current-idx');
-        const totalCardsDisplay = document.getElementById('total-cards');
-        const nextBtn = document.getElementById('next-btn');
-        const prevBtn = document.getElementById('prev-btn');
+                <div class="flex items-center justify-between text-[11px] font-bold">
+                    <span class="text-amber-500 uppercase">Learning</span>
+                    <span>12 Cards</span>
+                </div>
+                <div class="h-2 w-full bg-slate-100 dark:bg-slate-700 rounded-full">
+                    <div class="h-full bg-amber-500 rounded-full w-[20%]"></div>
+                </div>
+            </div>
+        </div>
 
-        function updateCardDisplay() {
-            if (cards.length === 0) return;
-            const card = cards[currentIndex];
-            questionText.innerText = card.question;
-            answerText.innerText = card.answer;
-            currentIdxDisplay.innerText = currentIndex + 1;
-            totalCardsDisplay.innerText = cards.length;
-            activeCard.classList.remove('flipped');
+        <div class="bg-slate-900 text-white rounded-2xl p-6 mt-auto">
+            <h4 class="text-sm font-bold">Pro Feature</h4>
+            <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">Spaced Repetition algorithm is now active for
+                this set.</p>
+            <button
+                class="mt-4 w-full bg-white text-slate-900 py-2.5 rounded-xl text-xs font-bold hover:bg-slate-100 transition-colors">Upgrade
+                Plan</button>
+        </div>
+    </aside>
+</div>
+
+<style>
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+
+    .transform-style-3d {
+        transform-style: preserve-3d;
+    }
+
+    .backface-hidden {
+        backface-visibility: hidden;
+    }
+
+    .rotate-y-180 {
+        transform: rotateY(180deg);
+    }
+
+    .flipped {
+        transform: rotateY(180deg);
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let flashcards = [];
+    let currentIndex = 0;
+
+    const cardEl = document.getElementById('flashcard');
+    const questionEl = document.getElementById('card-question');
+    const answerEl = document.getElementById('card-answer');
+    const indexEl = document.getElementById('card-index');
+    const viewerEl = document.getElementById('flashcard-viewer');
+    const noCardsMsg = document.getElementById('no-cards-msg');
+    const generateBtn = document.getElementById('generate-flashcards-btn');
+
+    cardEl.addEventListener('click', () => {
+        cardEl.classList.toggle('flipped');
+    });
+
+    function updateCard() {
+        if (flashcards.length === 0) return;
+
+        cardEl.classList.remove('flipped');
+        setTimeout(() => {
+            const card = flashcards[currentIndex];
+            questionEl.textContent = card.question;
+            answerEl.textContent = card.answer;
+            indexEl.textContent = `Card ${currentIndex + 1} of ${flashcards.length}`;
+        }, 150);
+    }
+
+    document.getElementById('next-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (flashcards.length === 0) return;
+        currentIndex = (currentIndex + 1) % flashcards.length;
+        updateCard();
+    });
+
+    document.getElementById('prev-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (flashcards.length === 0) return;
+        currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+        updateCard();
+    });
+
+    generateBtn.addEventListener('click', async () => {
+        generateBtn.disabled = true;
+        generateBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span><span>Generating...</span>';
+
+        try {
+            const res = await fetch('/api/generate-flashcards', { method: 'POST' });
+            const data = await res.json();
+
+            if (data.success) {
+                flashcards = data.flashcards;
+                currentIndex = 0;
+                noCardsMsg.classList.add('hidden');
+                viewerEl.classList.remove('hidden');
+                updateCard();
+                document.getElementById('to-review-count').textContent = flashcards.length;
+            } else {
+                alert(data.error || "Failed to generate flashcards. Please upload a PDF first.");
+            }
+        } catch (err) {
+            alert("Network error. Is the server running?");
+        } finally {
+            generateBtn.disabled = false;
+            generateBtn.innerHTML = '<span class="material-symbols-outlined text-sm">bolt</span><span>Generate from Source</span>';
         }
+    });
 
-        activeCard.addEventListener('click', () => {
-            activeCard.classList.toggle('flipped');
-        });
+    // Success/Fail buttons
+    document.getElementById('success-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Just move to next card for demo
+        currentIndex = (currentIndex + 1) % flashcards.length;
+        updateCard();
+    });
 
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < cards.length - 1) {
-                currentIndex++;
-                updateCardDisplay();
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCardDisplay();
-            }
-        });
-
-        generateBtn.addEventListener('click', async () => {
-            loadingOverlay.classList.remove('hidden');
-            try {
-                const res = await fetch('/api/generate-flashcards', { method: 'POST' });
-                const data = await res.json();
-
-                if (data.success && data.flashcards.length > 0) {
-                    cards = data.flashcards;
-                    currentIndex = 0;
-                    emptyState.classList.add('hidden');
-                    flashcardDisplay.classList.remove('hidden');
-                    updateCardDisplay();
-                } else {
-                    alert('Error: ' + (data.error || 'No flashcards were generated. Make sure you have uploaded a document.'));
-                }
-            } catch (err) {
-                alert('Connection error. Is the server running?');
-            } finally {
-                loadingOverlay.classList.add('hidden');
-            }
-        });
-    </script>
-</body>
-
-</html>
+    document.getElementById('fail-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Just move to next card for demo
+        currentIndex = (currentIndex + 1) % flashcards.length;
+        updateCard();
+    });
+</script>
+{% endblock %}

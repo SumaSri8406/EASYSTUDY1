@@ -1,0 +1,97 @@
+/* Global Theme Overrides for Utility Classes */
+
+/* 1. DARK MODE GLOBAL OVERRIDES */
+.dark .bg-white,
+.dark .bg-white\/95,
+.dark .bg-white\/80 {
+    background-color: #100f23 !important;
+}
+
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+    background-color: #1a1930 !important;
+}
+
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+    color: #f1f5f9 !important;
+}
+
+.dark .text-slate-600,
+.dark .text-slate-500 {
+    color: #94a3b8 !important;
+}
+
+.dark .border-slate-200,
+.dark .border-slate-100 {
+    border-color: #334155 !important;
+}
+
+/* 2. NEON THEME GLOBAL OVERRIDES */
+[data-theme="neon"] body {
+    background-color: #000000 !important;
+    color: #00ffcc !important;
+}
+
+[data-theme="neon"] .bg-white,
+[data-theme="neon"] .bg-slate-50,
+[data-theme="neon"] .bg-white\/70,
+[data-theme="neon"] .bg-white\/90,
+[data-theme="neon"] .bg-white\/95,
+[data-theme="neon"] .bg-slate-100,
+[data-theme="neon"] .bg-white\/80,
+[data-theme="neon"] .bg-slate-900,
+[data-theme="neon"] main,
+[data-theme="neon"] section,
+[data-theme="neon"] aside,
+[data-theme="neon"] header {
+    background-color: #0a0a0a !important;
+    border-color: #333 !important;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.1) !important;
+}
+
+[data-theme="neon"] .bg-slate-50\/50,
+[data-theme="neon"] .bg-slate-800\/50,
+[data-theme="neon"] input,
+[data-theme="neon"] select,
+[data-theme="neon"] textarea {
+    background-color: rgba(10, 10, 10, 0.8) !important;
+    color: #00ffcc !important;
+    border-color: #333 !important;
+}
+
+[data-theme="neon"] .text-slate-900,
+[data-theme="neon"] .text-slate-800,
+[data-theme="neon"] .text-slate-700,
+[data-theme="neon"] .text-slate-600,
+[data-theme="neon"] .text-slate-500:not(.text-red-500),
+[data-theme="neon"] .text-slate-400 {
+    color: #00ffcc !important;
+}
+
+[data-theme="neon"] .material-symbols-outlined {
+    color: inherit;
+}
+
+[data-theme="neon"] .bg-primary,
+[data-theme="neon"] .bg-primary\/10 {
+    background-color: #00ffcc !important;
+    color: #000 !important;
+    box-shadow: var(--neon-glow);
+}
+
+[data-theme="neon"] .text-primary {
+    color: #00ffcc !important;
+}
+
+[data-theme="neon"] .border-slate-200,
+[data-theme="neon"] .border-slate-800,
+[data-theme="neon"] .border-slate-100 {
+    border-color: #333 !important;
+}
+
+/* Transition for smooth theme switching */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

@@ -52,7 +52,7 @@ METADATA_PATH = os.path.join(UPLOAD_FOLDER, "metadata.json")
 # =========================================================================
 # 🔑 INSERT YOUR GOOGLE GEMINI API KEY ON THE LINE BELOW (Line 43)
 # =========================================================================
-GOOGLE_API_KEY = "AIzaSyDr1T1yV84WTJ6CT8KMw63PtobiNaV43z0"
+GOOGLE_API_KEY = "AIzaSyBcBSvvA6KWiQU1TlI39vnSCvH3ZTiASGU"
 
 # ✅ FIX 4: Wrap LLM init in try/except to catch bad API key early
 try:
@@ -305,7 +305,7 @@ class FlashcardState(TypedDict):
 def extract_key_concepts(state: FlashcardState):
     """Node: Extract important concepts from context."""
     prompt = PromptTemplate.from_template(
-        "Extract up to 8 key study concepts or terms from the following text. "
+        "Extract up to 12 key study concepts or terms from the following text. "
         "Return them as a simple comma-separated list.\n\nContext: {context}"
     )
     chain = prompt | llm | StrOutputParser()
@@ -314,20 +314,21 @@ def extract_key_concepts(state: FlashcardState):
         concepts = [c.strip() for c in result.split(",") if c.strip()]
     except Exception as e:
         print(f"⚠️ Concept extraction failed: {e}")
-        concepts = ["Key Topic 1", "Key Topic 2", "Key Topic 3", "Key Topic 4", "Key Topic 5"]
+        concepts = [f"Key Topic {i+1}" for i in range(10)]
         
-    # Ensure we always have at least 5 concepts for flashcards
-    while len(concepts) < 5:
+    # Ensure we always have at least 10 concepts for flashcards
+    while len(concepts) < 10:
         concepts.append(f"Important Concept {len(concepts)+1}")
         
     return {"concepts": concepts}
 
 def generate_cards(state: FlashcardState):
     """Node: Generate Q&A for all concepts in a single LLM call to save quota."""
-    concepts_list = ", ".join(state["concepts"][-8:])
+    concepts_list = ", ".join(state["concepts"][-12:])
     
     prompt = PromptTemplate.from_template(
-        "Based on the context, create exactly 5 concise flashcards (Question and Answer) for these concepts: {concepts_list}. "
+        "Based on the context, create exactly 10 DIFFERENT and UNIQUE flashcards (Question and Answer) covering as many of these concepts as possible: {concepts_list}. "
+        "Do not repeat questions or answers. Each card should tackle a distinct and specific detail from the study material. "
         "Respond ONLY with a valid JSON array containing objects with 'question' and 'answer' keys. No markdown blocks.\n"
         "Example: [{\"question\": \"...\", \"answer\": \"...\"}]\n\n"
         "Context: {context}"
@@ -385,21 +386,21 @@ def generate_cards(state: FlashcardState):
     # Fallback mechanism if LLM generation/parsing completely fails
     if not new_cards:
         print("⚠️ Falling back to default generated flashcards")
-        for i, concept in enumerate(state.get("concepts", [])[:5]):
+        for i, concept in enumerate(state.get("concepts", [])[:10]):
             new_cards.append({
                 "question": f"What is the definition and significance of '{concept}'?",
                 "answer": f"Please refer to your uploaded document to learn more about {concept}."
             })
             
-    # Guarantee at least 5 flashcards to meet UI requirement
-    while len(new_cards) < 5:
+    # Guarantee at least 10 flashcards to meet UI requirement
+    while len(new_cards) < 10:
         idx = len(new_cards) + 1
         new_cards.append({
             "question": f"Key finding #{idx}",
             "answer": "Refer to the document for more details on this topic."
         })
         
-    return {"flashcards": new_cards[:5]}
+    return {"flashcards": new_cards[:10]}
 
 def build_flashcard_graph():
     """Build the LangGraph workflow."""
@@ -443,10 +444,10 @@ Your answer:"""
         return f"Sorry, I couldn't process that right now. Error: {str(e)}"
 
 
-# ─── In-memory data ───
+# ─── In-memory data (Mutable for demo) ───
 USERS = {
-    "demo@easystudy.com": {"password": "demo123", "name": "Scholar Alex", "role": "Pro Member"},
-    "test@easystudy.com": {"password": "test123", "name": "Alex Johnson", "role": "Sophomore"},
+    "demo@easystudy.com": {"password": "demo123", "name": "Scholar Alex", "role": "Pro Member", "avatar": "https://lh3.googleusercontent.com/aida-public/AB6AXuC7ngvSJKG3TlxcO61-223YpQw8VjRmjShRRX7gH7pcyRm_lV1kBLdJEcsgG9VZwhHA0H-_nSMduWIl09hdCxmE1l2UiOqQbva53CE1vdz7G2ugu4GmCzBOEsvFD2e_043Le5vSCYPMnkDO1hjgJmIwsMEXkdA4MTKtBIeLP7ub8eWIJJ0z85FaNT5Ou1hYf6dKPdGf27MX3o1kn2qu4-i0ZoXH4Bz3OFqeVpAVwrIuVYKSQLaPdYM9XDlDNZaPR5K3UX4-UEYyt8Y"},
+    "test@easystudy.com": {"password": "test123", "name": "Alex Johnson", "role": "Sophomore", "avatar": "https://i.pravatar.cc/150?u=test"},
 }
 
 NOTES = []
@@ -524,12 +525,12 @@ def sources():
 @app.route("/progress")
 @login_required
 def progress():
-    return render_template("dashboard.html", user=session["user"], loaded_files=loaded_files)
+    return render_template("progress.html", user=session["user"], loaded_files=loaded_files)
 
 @app.route("/settings")
 @login_required
 def settings():
-    return render_template("dashboard.html", user=session["user"], loaded_files=loaded_files)
+    return render_template("settings.html", user=session["user"], loaded_files=loaded_files)
 
 
 # ══════════════════════════════
@@ -565,6 +566,71 @@ def api_upload():
         print(f"❌ Upload error: {type(e).__name__}: {e}")
         return jsonify({"error": f"Failed to process PDF: {str(e)}"}), 500
 
+
+# ══════════════════════════════
+# API: SETTINGS & PROFILE
+# ══════════════════════════════
+
+@app.route("/api/profile/update", methods=["POST"])
+@login_required
+def api_update_profile():
+    """Update user profile information."""
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+    
+    email = session["user"]["email"]
+    name = data.get("name")
+    new_email = data.get("email")
+    role = data.get("role")
+    avatar = data.get("avatar")
+    
+    if email in USERS:
+        if name: USERS[email]["name"] = name
+        if role: USERS[email]["role"] = role
+        if avatar: USERS[email]["avatar"] = avatar
+        
+        # Simple email change logic (demo only)
+        if new_email and new_email != email:
+            USERS[new_email] = USERS.pop(email)
+            email = new_email
+            
+        # Update session
+        session["user"] = {
+            "email": email,
+            "name": USERS[email]["name"],
+            "role": USERS[email]["role"],
+            "avatar": USERS[email].get("avatar")
+        }
+        session.modified = True
+        
+        return jsonify({"success": True, "message": "Profile updated successfully!", "user": session["user"]})
+    
+    return jsonify({"error": "User not found"}), 404
+
+@app.route("/api/profile/change-password", methods=["POST"])
+@login_required
+def api_change_password():
+    """Update user password."""
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+    
+    email = session["user"]["email"]
+    current_pw = data.get("current_password")
+    new_pw = data.get("new_password")
+    
+    if not current_pw or not new_pw:
+        return jsonify({"error": "Both passwords are required"}), 400
+        
+    if email in USERS:
+        if USERS[email]["password"] == current_pw:
+            USERS[email]["password"] = new_pw
+            return jsonify({"success": True, "message": "Password changed successfully!"})
+        else:
+            return jsonify({"error": "Current password is incorrect"}), 400
+            
+    return jsonify({"error": "User not found"}), 404
 
 # ══════════════════════════════
 # API: CHAT (AI TUTOR)
